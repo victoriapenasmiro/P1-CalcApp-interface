@@ -1,54 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>P1 CalcApp</title>
-    <!-- Styles -->
-    <link rel="stylesheet" type="text/css" href="stylesv3.css" />
+    <!-- Styles
+    <link rel="stylesheet" type="text/css" href="stylesv2.css" /> -->
     <!--Fontawesome-->
     <script src="https://kit.fontawesome.com/c20c034885.js" crossorigin="anonymous"></script>
     <!--Google fonts-->
     <link href="https://fonts.googleapis.com/css2?family=Krona+One&family=Open+Sans+Condensed:wght@300&display=swap" rel="stylesheet">
+<style>
+header { grid-area: header; }
+.item2 { grid-area: menu; }
+.item3 { grid-area: main; }
+.item4 { grid-area: right; }
+.item5 { grid-area: footer; }
+
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    'header header header header header header'
+    'menu main main main right right'
+    'menu footer footer footer footer footer';
+  grid-gap: 10px;
+  background-color: #2196F3;
+  padding: 10px;
+}
+
+.grid-container > div,.grid-container > header {
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  padding: 20px 0;
+  font-size: 30px;
+}
+</style>
 </head>
-
 <body>
-    <div class="grid-container">
-        <aside id="asidel">Sidebar L</aside>
-        <header>
-            <img src="img/calcApp-logo.jpg" alt="" width="80">
-            <h1>CalcApp</h1>
-        </header>
-        <nav>
-            <a href="#" onclick="">STANDARD</a>
-            <a href="#" onclick="">FECHAS</a>
-        </nav>
-        <!--TODO confirmar si hay que meterlo dentro del header-->
-        <!--calculadora-->
-        <main>
-            <div style="background-color:pink;">CALCULADORA</div>
-        </main>
-        <!--historial de operaciones-->
-        <section id="historial">
-            <h2>
-                Historial de operaciones
-            </h2>
-            <p>
-                122+2323
-            </p>
-            <p>
-                122+2323
-            </p>
-        </section>
-        <aside id="asider">Sidebar R</aside>
-        <footer>
-            <p>Mª Victoria Peñas Miró</p>
-            <a href="https://github.com/victoriapenasmiro/P1-CalcApp-interface" target="_blank"><i
-                    class="fab fa-github"></i> ver repositorio Git</a>
-            <p id="right">Copyright 2020</p>
-        </footer>
-    </div>
-</body>
 
+<h1>Grid Layout</h1>
+
+<p>This grid layout contains six columns and three rows:</p>
+
+<div class="grid-container">
+  <header class="item1">Header</header>
+  <div class="item2">Menu</div>
+  <div class="item3">Main</div>  
+  <div class="item4">Right</div>
+  <div class="item5">Footer</div>
+</div>
+
+</body>
 </html>

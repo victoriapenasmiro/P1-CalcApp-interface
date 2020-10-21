@@ -39,8 +39,6 @@ h2{
   box-sizing: border-box;
 }
 
-
-
 .grid-container > section,.grid-container > header, .grid-container > div,
 .grid-container > nav, .grid-container > footer, .grid-container > aside,
 .grid-container > main {
