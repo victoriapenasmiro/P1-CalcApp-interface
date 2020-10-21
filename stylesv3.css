@@ -1,0 +1,39 @@
+body {
+    font-family: 'Open Sans Condensed', sans-serif;
+}
+
+h1,h2,h3,h4,h5,h6{
+    font-family: 'Krona One', sans-serif;
+}
+
+h2{
+    font-size: 1em;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 75% 1fr;
+    grid-gap: 5px;
+    background-color: #2196F3;
+    padding: 10px;
+    box-sizing: border-box;
+    /*grid-template-rows: 100px 1fr 100px;*/
+  }
+
+  /*responsive design tablet + desktop -- TODO es ok?*/
+/*@media screen and (min-width: 1200px){
+    .grid-container{
+        max-width: 1200px; /*TODO poner un width fijo me afecta al responsive
+    }
+}*/
+  
+  .grid-container > section,.grid-container > header, .grid-container > div,
+.grid-container > nav, .grid-container > footer, .grid-container > aside,
+.grid-container > main {
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    /*padding: 20px;*/
+}
+/*header,nav,footer {
+    grid-column: span 3;
+  }*/
