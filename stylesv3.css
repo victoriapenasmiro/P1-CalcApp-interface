@@ -11,7 +11,6 @@ h2{
 }
 
 /*responsive design tablet + desktop*/
-/*En el sketch indica que debe haber un margen lateral*/
 @media screen and (min-width: 700px){
     .grid-container{
         width: 1200px;
