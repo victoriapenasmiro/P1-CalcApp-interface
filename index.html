@@ -28,7 +28,7 @@
         </nav>
         <main>
             <div>
-                <input type="text" readonly id="operacion">
+                <input type="text" readonly id="operacion" value="0">
                 <input type="text" readonly id="operando" value="0">
             </div>
             <!--Calculadora standard-->
@@ -42,49 +42,49 @@
                 <button onclick="borrarTodo()">
                     C
                 </button>
-                <button name="ce" onclick="borrarOperando(this)">
+                <button id="ce" name="ce">
                     CE
                 </button>
-                <button name="backspace" onclick="borrarOperando(this)">
+                <button id="backspace" name="backspace">
                     <i class="fas fa-backspace"></i>
                 </button>
-                <button name="9" onclick="addNumber(this)">
+                <button name="9" id="but_9">
                     9
                 </button>
-                <button name="8" onclick="addNumber(this)">
+                <button name="8" id="but_8">
                     8
                 </button>
-                <button name="7" onclick="addNumber(this)">
+                <button name="7" id="but_7">
                     7
                 </button>
-                <button name="+" onclick="addSymbol(this)">
+                <button id="operador_sum" name="+">
                     +
                 </button>
-                <button name="-" onclick="addSymbol(this)">
+                <button id="operador_res" name="-">
                     -
                 </button>
-                <button name="6" onclick="addNumber(this)">
+                <button name="6" id="but_6">
                     6
                 </button>
-                <button name="5" onclick="addNumber(this)">
+                <button name="5" id="but_5">
                     5
                 </button>
-                <button name="4" onclick="addNumber(this)">
+                <button name="4" id="but_4">
                     4
                 </button>
-                <button name="*" onclick="addSymbol(this)">
+                <button id="operador_mult" name="*">
                     x
                 </button>
-                <button name="/" onclick="addSymbol(this)">
+                <button id="operador_div" name="/">
                     /
                 </button>
-                <button name="3" onclick="addNumber(this)">
+                <button name="3" id="but_3">
                     3
                 </button>
-                <button name="2" onclick="addNumber(this)">
+                <button name="2" id="but_2">
                     2
                 </button>
-                <button name="1" onclick="addNumber(this)">
+                <button name="1" id="but_1">
                     1
                 </button>
                 <button onclick="cambioSigno()">
@@ -96,10 +96,10 @@
                 <button>
                     c
                 </button>
-                <button name="0" onclick="addNumber(this)">
+                <button name="0" id="but_0">
                     0
                 </button>
-                <button>
+                <button name="." id="decimal">
                     .
                 </button>
                 <button onclick="calcular()">

@@ -1,46 +1,93 @@
-/**
- * Listado básico de los operadores
- */
+//Listado de operadores
 var operadores = ["+","-","*","/"];
+// variable para controlar si en el operando ya se ha puesto un decimal
+var decimal = false;
+
+/**
+ * Función para poner a la escucha todos los botones de la calculadora
+ */
+window.onload = function () {
+    document.getElementById("but_9").addEventListener("click",addNumber);
+    document.getElementById("but_8").addEventListener("click",addNumber);
+    document.getElementById("but_7").addEventListener("click",addNumber);
+    document.getElementById("but_6").addEventListener("click",addNumber);
+    document.getElementById("but_5").addEventListener("click",addNumber);
+    document.getElementById("but_4").addEventListener("click",addNumber);
+    document.getElementById("but_3").addEventListener("click",addNumber);
+    document.getElementById("but_2").addEventListener("click",addNumber);
+    document.getElementById("but_1").addEventListener("click",addNumber);
+    document.getElementById("but_0").addEventListener("click",addNumber);
+    document.getElementById("decimal").addEventListener("click",addNumber);
+    document.getElementById("operador_sum").addEventListener("click",addSymbol);
+    document.getElementById("operador_res").addEventListener("click",addSymbol);
+    document.getElementById("operador_mult").addEventListener("click",addSymbol);
+    document.getElementById("operador_div").addEventListener("click",addSymbol);
+    document.getElementById("ce").addEventListener("click",borrarOperando);
+    document.getElementById("backspace").addEventListener("click",borrarOperando);
+}
 
 /**
  * Función para añadir los números a las casillas
  * de la operación y del operando.
- * @button es el botón desde el cuál se ha llamado a esta función
  */
-function addNumber(button){
-    let num = button.name;
+function addNumber(){
+    let num = this.name;
     let operando = document.getElementById("operando").value;
-    
-    document.getElementById("operacion").value += num;
-    if (operando == 0){
-        document.getElementById("operando").value = num;
-    } else {
-        document.getElementById("operando").value += num;
+    let operacion = document.getElementById("operacion").value;
+
+    if (!decimal || (decimal && num != ".")){
+        if (operando == 0 && operacion == 0 && num != "." ){
+            document.getElementById("operando").value = num;
+            document.getElementById("operacion").value = num;
+
+        } else if (operando == 0 && operacion != 0 && num != "."){
+            document.getElementById("operacion").value += num;
+            document.getElementById("operando").value = num;
+
+        } else if (num == "."){
+            //Si es un decimal, ya no se podrán cargar más decimales
+            decimal = true;
+            document.getElementById("operando").value += ",";
+            document.getElementById("operacion").value += ",";
+
+        } else {
+            document.getElementById("operando").value += num;
+            document.getElementById("operacion").value += num;
+        }
+    } else{
+        //TODO mostrar mensaje de error:
+        alert("Un mismo número no puede tener dos comas decimales");
     }
+
 }
 
 /**
  * Función para añadir los operadores a la casilla de la operación.
- * @button es el botón desde el cuál se ha llamado a esta función
  */
-function addSymbol(button){
-    let num = button.name;
+function addSymbol(){
+    let num = this.name;
+    let operando = document.getElementById("operando").value;
     
     document.getElementById("operacion").value += num;
-    document.getElementById("operando").value = 0;//reseteo la casilla del operando
+    document.getElementById("operando").value = 0; //reseteo la casilla del operando
+    decimal = false; // resteo
 }
+    
 
 /**
  * Función para calcular la operación
  */
 function calcular(){
     let operacion = document.getElementById("operacion").value;
+    operacion = operacion.replace(/,/g,"."); //cambio comas por .
     let res = eval(operacion);
     
+    //TODO FALTA QUE PINTE COMAS EN VEZ DE PUNTOS
     document.getElementById("historial").innerHTML += "<p>" + operacion + "</p>";
     document.getElementById("operacion").value = res;
     document.getElementById("operando").value = res;
+
+    decimal = false;
 }
 
 /**
@@ -49,25 +96,43 @@ function calcular(){
  */
 function borrarTodo(){ /*¿Debe borrarse también el historial? */
     document.getElementById("operacion").value = "";
-    document.getElementById("operando").value = 0
+    document.getElementById("operando").value = 0;
+    decimal = false;
 }
 
 /**
  * Función para borrar el último número introducido
- * @button es el botón desde el cuál se ha llamado a esta función
  */
-function borrarOperando(button){
+function borrarOperando(){
     let operacion = document.getElementById("operacion").value;
     let ultimoValor = operacion.substr(-1,1); //obtengo el último valor
 
     document.getElementById("operando").value = 0
+    
+    //si se elimina el decimal, reseteo var
+    if (ultimoValor = "."){
+        decimal = false;
+    }
 
-    if (button.name == "ce"){
+    if (this.name == "ce"){
         if (operadores.indexOf(ultimoValor) == -1){
             eliminarUltimo(operacion,1);
         }
-    } else if (button.name == "backspace"){
+    } else if (this.name == "backspace"){
         eliminarUltimo(operacion,1);
+    }
+    
+    resetOperacion();
+}
+
+/**
+ * Función que comprueba si la operación está vacía y añade 0
+ */
+function resetOperacion(){
+    let operacion = document.getElementById("operacion").value;
+    
+    if (operacion.length == 0){
+        document.getElementById("operacion").value = 0;
     }
 }
 
@@ -133,10 +198,10 @@ function cambioSigno(){
     let num = document.getElementById("operando").value;
     let ultimoOperador = buscoOperador(operacion);
     let simbolo = operacion.substr(ultimoOperador,1);
+    
     /* Si detectamos que el número está entre "()", hay que eliminar
     los dos paréntesis + el símbolo, por eso, si detectamos un paréntesis,
-    envío el length del num + 3.
-     */
+    envío el length del num + 3*/
     if (operacion.substr(ultimoOperador-1,1) == "("){
         eliminarUltimo(operacion,num.length+3);
     } else {
@@ -170,13 +235,31 @@ function buscoOperador(operacion){
  * Función para calcular el cuadrado de un número dado
  */
 function alCuadrado(){
-    let num = obtenerNumero();
-    let ultimoValor = operacion.substr(-1,1);
+    let operacion = document.getElementById("operacion").value;
+    let num = document.getElementById("operando").value;
+    let ultimoOperador = buscoOperador(operacion);
+    let simbolo = operacion.substr(ultimoOperador,1);
+    
+    if (num != 0){
+        /* Si detectamos que el número está entre "()", hay que eliminar
+        los dos paréntesis + el símbolo, por eso, si detectamos un paréntesis,
+        envío el length del num + 3*/
+        if (operacion.substr(ultimoOperador-1,1) == "("){
+            eliminarUltimo(operacion,num.length+3);
+            document.getElementById("operacion").value += "(" + simbolo + Math.pow(num,2) + ")";
+            document.getElementById("operando").value = "(" + simbolo + Math.pow(num,2) + ")";
+        } else {
+            eliminarUltimo(operacion,num.length);
+            document.getElementById("operacion").value += Math.pow(num,2);
+            document.getElementById("operando").value = Math.pow(num,2);
+        }
+    }
 }
 
 /**
  * Función que devuelve el último número que se ha cargado
- * @deprecated ya no se necesita porqué en el input con id="operando" siempre grabamos el último número cargado
+ * @deprecated ya no se necesita porqué en el input con id="operando"
+ * ya obtenemos el último número cargado.
  */
 function obtenerNumero(){
     let operacion = document.getElementById("operacion").value;
@@ -196,11 +279,3 @@ function obtenerNumero(){
 
     return num;
 }
-
-/**TODO
- * Funcion a crear si no están definidas:
- * Controlar que si hay un * o / y a continuación escribo * o /, se debe sustituir, no concatenar, idem con + -
- * 
- * Hasta que no se meta un operador, seguir añadiendo los números en el operando
- * 
- */
