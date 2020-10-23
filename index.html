@@ -5,52 +5,123 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>P1 CalcApp</title>
-    <!-- Styles -->
+    <!-- Styles-->
     <link rel="stylesheet" type="text/css" href="styles.css" />
     <!--Fontawesome-->
     <script src="https://kit.fontawesome.com/c20c034885.js" crossorigin="anonymous"></script>
     <!--Google fonts-->
-    <link href="https://fonts.googleapis.com/css2?family=Krona+One&family=Open+Sans+Condensed:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Krona+One&family=Open+Sans+Condensed:wght@300+Condensed:wght@700&display=swap"
+        rel="stylesheet">
+    <!--Scripts-->
+    <script src="scripts.js"></script>
 </head>
 
 <body>
-    <header>
-        <div id="headerdiv">
-            <img src="img/calcApp-logo.jpg" alt="" width="100">
+    <div class="grid-container">
+        <header>
+            <img src="img/calcApp-logo.jpg" alt="" width="80">
             <h1>CalcApp</h1>
-        </div>
+        </header>
         <nav>
             <a href="#" onclick="">STANDARD</a>
-            <a href="#" onclick="">DATES</a>
+            <a href="#" onclick="">FECHAS</a>
         </nav>
-    </header>
-    <main>
-        <div>
-            <input type="text" id="operacio">
-            <input type="text" id="operand" placeholder="0">
-        </div>
-        <div id="botons">
-            <a href="">1</a>
-            <a href="">2</a>
-            <a href="">3</a>
-            <a href="">4</a>
-            <a href="">5</a>
-            <a href="">6</a>
-            <a href="">7</a>
-            <a href="">8</a>
-            <a href="">9</a>
-            <a href="">10</a>
-            <a href="">11</a>
-            <a href="">12</a>
-        </div>
-    </main>
-    <footer>
-        <div>
+        <main>
+            <div>
+                <input type="text" readonly id="operacion">
+                <input type="text" readonly id="operando" value="0">
+            </div>
+            <!--Calculadora standard-->
+            <div>
+                <button>
+                    C
+                </button>
+                <button>
+                    C
+                </button>
+                <button onclick="borrarTodo()">
+                    C
+                </button>
+                <button name="ce" onclick="borrarOperando(this)">
+                    CE
+                </button>
+                <button name="backspace" onclick="borrarOperando(this)">
+                    <i class="fas fa-backspace"></i>
+                </button>
+                <button name="9" onclick="addNumber(this)">
+                    9
+                </button>
+                <button name="8" onclick="addNumber(this)">
+                    8
+                </button>
+                <button name="7" onclick="addNumber(this)">
+                    7
+                </button>
+                <button name="+" onclick="addSymbol(this)">
+                    +
+                </button>
+                <button name="-" onclick="addSymbol(this)">
+                    -
+                </button>
+                <button name="6" onclick="addNumber(this)">
+                    6
+                </button>
+                <button name="5" onclick="addNumber(this)">
+                    5
+                </button>
+                <button name="4" onclick="addNumber(this)">
+                    4
+                </button>
+                <button name="*" onclick="addSymbol(this)">
+                    x
+                </button>
+                <button name="/" onclick="addSymbol(this)">
+                    /
+                </button>
+                <button name="3" onclick="addNumber(this)">
+                    3
+                </button>
+                <button name="2" onclick="addNumber(this)">
+                    2
+                </button>
+                <button name="1" onclick="addNumber(this)">
+                    1
+                </button>
+                <button onclick="cambioSigno()">
+                    + / -
+                </button>
+                <button onclick="alCuadrado()">
+                    x2
+                </button>
+                <button>
+                    c
+                </button>
+                <button name="0" onclick="addNumber(this)">
+                    0
+                </button>
+                <button>
+                    .
+                </button>
+                <button onclick="calcular()">
+                    =
+                </button>
+                <button>
+                    c
+                </button>
+            </div>
+        </main>
+        <section id="historial">
+            <h2>
+                Historial de operaciones:
+            </h2>
+        </section>
+        <footer>
             <p>Mª Victoria Peñas Miró</p>
-            <a href="https://github.com/victoriapenasmiro/P1-CalcApp-interface" target="_blank"><i class="fab fa-github"></i> ver repositorio Git</a>
-            <span id="right">Copyright 2020</span>
-        </div>
-    </footer>
+            <a href="https://github.com/victoriapenasmiro/P1-CalcApp-interface" target="_blank"><i
+                    class="fab fa-github"></i> ver repositorio Git</a>
+            <p id="right">Copyright 2020</p>
+        </footer>
+    </div>
 </body>
 
 </html>
