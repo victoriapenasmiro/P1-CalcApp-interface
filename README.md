@@ -11,3 +11,6 @@ ha quedado obsoleta y se ha etiquetado como @deprecated.
 
 ## ⏳ AMPLIACIONES PREVISTAS:
 1. Controlar que si el último valor es un operador y a continuación se escribe otro, debe sustituirse y añadirse a la operación.
+
+### 👩‍💻 Autora:
+Mª Victoria Peñas Miró

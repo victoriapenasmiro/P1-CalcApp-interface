@@ -1,127 +1,83 @@
 <!DOCTYPE html>
 <html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>P1 CalcApp</title>
     <!-- Styles-->
     <link rel="stylesheet" type="text/css" href="styles.css" />
     <!--Fontawesome-->
-    <script src="https://kit.fontawesome.com/c20c034885.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/c20c034885.js"
+      crossorigin="anonymous"
+    ></script>
     <!--Google fonts-->
-    <link href="https://fonts.googleapis.com/css2?family=Krona+One&family=Open+Sans+Condensed:wght@300+Condensed:wght@700&display=swap"
-        rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Krona+One&family=Open+Sans+Condensed:wght@300+Condensed:wght@700&display=swap"
+      rel="stylesheet"
+    />
     <!--Scripts-->
     <script src="scripts.js"></script>
-</head>
+  </head>
 
-<body>
-    <div class="grid-container">
-        <header>
-            <img src="img/calcApp-logo.jpg" alt="" width="80">
-            <h1>CalcApp</h1>
-        </header>
-        <nav>
-            <a href="#" onclick="">STANDARD</a>
-            <a href="#" onclick="">FECHAS</a>
-        </nav>
-        <main>
-            <div>
-                <input type="text" readonly id="operacion" value="0">
-                <input type="text" readonly id="operando" value="0">
-            </div>
-            <!--Calculadora standard-->
-            <div>
-                <button>
-                    C
-                </button>
-                <button>
-                    C
-                </button>
-                <button onclick="borrarTodo()">
-                    C
-                </button>
-                <button id="ce" name="ce">
-                    CE
-                </button>
-                <button id="backspace" name="backspace">
-                    <i class="fas fa-backspace"></i>
-                </button>
-                <button name="9" id="but_9">
-                    9
-                </button>
-                <button name="8" id="but_8">
-                    8
-                </button>
-                <button name="7" id="but_7">
-                    7
-                </button>
-                <button id="operador_sum" name="+">
-                    +
-                </button>
-                <button id="operador_res" name="-">
-                    -
-                </button>
-                <button name="6" id="but_6">
-                    6
-                </button>
-                <button name="5" id="but_5">
-                    5
-                </button>
-                <button name="4" id="but_4">
-                    4
-                </button>
-                <button id="operador_mult" name="*">
-                    x
-                </button>
-                <button id="operador_div" name="/">
-                    /
-                </button>
-                <button name="3" id="but_3">
-                    3
-                </button>
-                <button name="2" id="but_2">
-                    2
-                </button>
-                <button name="1" id="but_1">
-                    1
-                </button>
-                <button onclick="cambioSigno()">
-                    + / -
-                </button>
-                <button onclick="alCuadrado()">
-                    x2
-                </button>
-                <button>
-                    c
-                </button>
-                <button name="0" id="but_0">
-                    0
-                </button>
-                <button name="." id="decimal">
-                    .
-                </button>
-                <button onclick="calcular()">
-                    =
-                </button>
-                <button>
-                    c
-                </button>
-            </div>
-        </main>
-        <section id="historial">
-            <h2>
-                Historial de operaciones:
-            </h2>
-        </section>
-        <footer>
-            <p>Mª Victoria Peñas Miró</p>
-            <a href="https://github.com/victoriapenasmiro/P1-CalcApp-interface" target="_blank"><i
-                    class="fab fa-github"></i> ver repositorio Git</a>
-            <p id="right">Copyright 2020</p>
-        </footer>
+  <body>
+    <div class="grid_container">
+      <header>
+        <img src="img/calcApp-logo.jpg" alt="" width="80" />
+        <h1>CalcApp</h1>
+      </header>
+      <nav>
+        <a href="#" onclick="">STANDARD</a>
+        <a href="#" onclick="">FECHAS</a>
+      </nav>
+      <main>
+        <div>
+          <input type="text" readonly id="operacion" value="0" />
+          <input type="text" readonly id="operando" value="0" />
+        </div>
+        <!--Calculadora standard-->
+        <div>
+          <button>C</button>
+          <button>C</button>
+          <button id="c">C</button>
+          <button id="ce" name="ce">CE</button>
+          <button id="backspace" name="backspace">
+            <i class="fas fa-backspace"></i>
+          </button>
+          <button name="9" id="but9">9</button>
+          <button name="8" id="but8">8</button>
+          <button name="7" id="but7">7</button>
+          <button id="operadorSum" name="+">+</button>
+          <button id="operadorRes" name="-">-</button>
+          <button name="6" id="but6">6</button>
+          <button name="5" id="but5">5</button>
+          <button name="4" id="but4">4</button>
+          <button id="operadorMult" name="*">x</button>
+          <button id="operadorDiv" name="/">/</button>
+          <button name="3" id="but3">3</button>
+          <button name="2" id="but2">2</button>
+          <button name="1" id="but1">1</button>
+          <button id="cambioSig">+ / -</button>
+          <button id="alCuadrado">x2</button>
+          <button>c</button>
+          <button name="0" id="but0">0</button>
+          <button name="." id="decimal">.</button>
+          <button id="calcular">=</button>
+          <button>c</button>
+        </div>
+      </main>
+      <section id="historial">
+        <h2>Historial de operaciones:</h2>
+      </section>
+      <footer>
+        <p>Mª Victoria Peñas Miró</p>
+        <a
+          href="https://github.com/victoriapenasmiro/P1-CalcApp-interface"
+          target="_blank"
+          ><i class="fab fa-github"></i> ver repositorio Git</a
+        >
+        <p id="right">Copyright 2020</p>
+      </footer>
     </div>
-</body>
-
+  </body>
 </html>
