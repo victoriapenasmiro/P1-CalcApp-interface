@@ -2,6 +2,8 @@
 var operadores = ["+", "-", "*", "/"];
 // variable para controlar si en el operando ya se ha puesto un decimal
 var decimal = false;
+// variable para comprobar si ya se ha calculado una expresión
+var reset = false;
 
 /**
  * Función para poner a la escucha todos los botones de la calculadora
@@ -31,7 +33,6 @@ window.onload = function () {
   document.getElementById("cambioSig").addEventListener("click", cambioSigno);
   document.getElementById("alCuadrado").addEventListener("click", alCuadrado);
   document.getElementById("calcular").addEventListener("click", calcular);
-
 };
 
 /**
@@ -56,8 +57,14 @@ function addNumber() {
       document.getElementById("operando").value += ",";
       document.getElementById("operacion").value += ",";
     } else {
-      document.getElementById("operando").value += num;
-      document.getElementById("operacion").value += num;
+      if (reset) {
+        reset = false;
+        document.getElementById("operando").value = num;
+        document.getElementById("operacion").value = num;
+      } else {
+        document.getElementById("operando").value += num;
+        document.getElementById("operacion").value += num;
+      }
     }
   } else {
     //TODO mostrar mensaje de error:
@@ -82,8 +89,11 @@ function addSymbol() {
  */
 function calcular() {
   let operacion = document.getElementById("operacion").value;
-  operacion = operacion.replace(/,/g, "."); //cambio comas por .
+  operacion = operacion.replace(/,/g, "."); //cambio comas por . para calcularlo
   let res = eval(operacion);
+
+  res = res.toString().replace(".",","); //convierto los . en comas para pintarlo
+  operacion = operacion.replace(/\./g, ","); //convierto los . en comas para pintarlo
 
   //TODO FALTA QUE PINTE COMAS EN VEZ DE PUNTOS
   document.getElementById("historial").innerHTML += "<p>" + operacion + "</p>";
@@ -91,6 +101,7 @@ function calcular() {
   document.getElementById("operando").value = res;
 
   decimal = false;
+  reset = true;
 }
 
 /**
@@ -102,6 +113,7 @@ function borrarTodo() {
   document.getElementById("operacion").value = 0;
   document.getElementById("operando").value = 0;
   decimal = false;
+  reset = false;
 }
 
 /**
