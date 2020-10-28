@@ -36,7 +36,10 @@ window.onload = function () {
   document.getElementById("historialMobile").addEventListener("click", mostrarHistorial)
   document.getElementById("butFechas").addEventListener("click", mostrarFechas);
   document.getElementById("butStandard").addEventListener("click", mostrarStandard);
+  document.getElementById("butFechasMobile").addEventListener("click", mostrarFechas);
+  document.getElementById("butStandardMobile").addEventListener("click", mostrarStandard);
   document.getElementById("fecDesde").addEventListener("change",formatearFecha);
+  document.getElementById("mobileMenu").addEventListener("click",menuMobile);
 
   /**
    * Función para ejecutrar los calendarios en el formulario de fechas
@@ -59,6 +62,30 @@ function formatearFecha(){
   let fecha = document.getElementById("fecDesde").value;
   let fechaTexto = new Date(fecha);
   document.getElementById("diferenciaDias").value += fechaTexto;
+}
+
+/**
+ * Función que ejecuta el menu en móviles
+ */
+function menuMobile() {
+  let link = document.getElementById("optionsMenu");
+  let img = document.getElementsByTagName('img')[0];
+  let menu = document.getElementsByTagName('header')[0];
+  let iconTanca = document.getElementsByClassName('fas fa-times')[0];
+  let iconPrincipal = document.getElementsByClassName('fa fa-bars')[0];
+  if (link.style.display === "block") {
+    link.style.display = "none";
+    img.style.display = "block";
+    menu.style.backgroundColor = "rgba(255, 255, 255, 0.8)";
+    iconTanca.style.display = "none";
+    iconPrincipal.style.display = "block";
+  } else {
+    link.style.display = "block";
+    img.style.display = "none";
+    menu.style.backgroundColor = "white";
+    iconPrincipal.style.display = "none";
+    iconTanca.style.display = "block";
+  }
 }
 
 /**

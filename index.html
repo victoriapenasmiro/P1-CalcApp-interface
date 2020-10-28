@@ -4,38 +4,59 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>P1 CalcApp</title>
+    
     <!-- Styles-->
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
     <!-- prettier-ignore -->
+    <!--Calendar styles-->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- prettier-ignore -->
+    <!--responsive menu styles-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
     <!--Fontawesome-->
     <!-- prettier-ignore -->
     <script src="https://kit.fontawesome.com/c20c034885.js"
       crossorigin="anonymous"></script>
+    
     <!--Google fonts-->
     <!-- prettier-ignore -->
     <link
       href="https://fonts.googleapis.com/css2?family=Krona+One&family=Open+Sans+Condensed:wght@300+Condensed:wght@700&display=swap"
       rel="stylesheet"/>
-    <!--Scripts-->
+    
+      <!--Scripts-->
     <script src="js/scripts.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="jquery.ui.datepicker-es.js"></script>
   </head>
 
   <body>
-    <div class="grid_container">
+    <div class="grid_container"><!--puede ser un id TODOOOOO-->
       <header>
-        <img src="img/calcApp-logo.jpg" alt="" width="80" />
+        <img src="img/calcApp-logo.jpg" alt=""/>
         <h1>CalcApp</h1>
+
+        <!-- Top Navigation Responsive Menu -->
+        <div id="mobileMenu">
+          <a href="#" class="icon">
+            <i class="fa fa-bars"></i>
+            <i class="fas fa-times"></i>
+          </a>
+          <div id="optionsMenu">
+            <a href="#" id="butStandardMobile">STANDARD</a>
+            <a href="#" id="butFechasMobile">FECHAS</a>
+            <a href="/#historial" id="historialMobile">HISTORIAL</a>
+          </div>
+        </div>
+
       </header>
-      <nav>
+      <nav> 
         <a href="#" id="butStandard">STANDARD</a>
         <a href="#" id="butFechas">FECHAS</a>
         <a href="/#historial">HISTORIAL</a>
-        <a href="/#historial" id="historialMobile">HISTORIAL</a>
       </nav>
+
       <main>
         <!--Calculadora standard-->
         <section id="standard">
@@ -71,6 +92,7 @@
         </section>
         <!--Calculadora de fechas-->
         <section id="fechas">
+          <h3>Indica las fechas desde y hasta</h3>
           <p>Desde: <input type="text" class="datepicker" id="fecDesde"/></p>
           <p>Hasta: <input type="text" class="datepicker" id="fecHasta"/></p>
           <div id="diferenciaDias">

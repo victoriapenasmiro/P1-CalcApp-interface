@@ -20,7 +20,6 @@ header {
   display: flex;
   flex-wrap: wrap;
   position: relative;
-  justify-content: center;
   border-radius: 15px;
 }
 
@@ -181,16 +180,22 @@ main > section div:last-child > button:last-child{
     margin-left: 15%;
   }
 
+  header {
+    justify-content: center;
+  }
+
   header > img {
     left: 20px;
     position: absolute;
-  }
+    width: 80px;
+    height: 80px;
+}
 
   button {
     padding: 10px;
   }
 
-  nav > a:last-child {
+  #mobileMenu{
     display: none;
   }
 
@@ -207,11 +212,17 @@ main > section div:last-child > button:last-child{
     padding: 10px;
   }
 
+  header > h1{
+    display: none;
+  }
+
+  header > img {
+    width: 50px;
+    height: 50px;
+  }
+
   nav {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: none;
   }
 
   nav a {
@@ -233,5 +244,30 @@ main > section div:last-child > button:last-child{
   #historial{
     display: none;
   }
-
+  
+  #mobileMenu #optionsMenu {
+    display: none;
+  }
+  
+  #mobileMenu > a:first-child {
+    color: white;
+  }
+  
+  #mobileMenu a {
+    color: black;
+    padding: 14px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  #mobileMenu a.icon {
+    background: black;
+    display: block;
+    position: absolute;
+    right: 20px;
+  }
+  
+  i.fas.fa-times{
+    display: none;
+  }
 }
