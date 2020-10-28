@@ -5,19 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>P1 CalcApp</title>
     <!-- Styles-->
-    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link rel="stylesheet" type="text/css" href="css/styles.css" />
+    <!-- prettier-ignore -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <!--Fontawesome-->
-    <script
-      src="https://kit.fontawesome.com/c20c034885.js"
-      crossorigin="anonymous"
-    ></script>
+    <!-- prettier-ignore -->
+    <script src="https://kit.fontawesome.com/c20c034885.js"
+      crossorigin="anonymous"></script>
     <!--Google fonts-->
+    <!-- prettier-ignore -->
     <link
       href="https://fonts.googleapis.com/css2?family=Krona+One&family=Open+Sans+Condensed:wght@300+Condensed:wght@700&display=swap"
-      rel="stylesheet"
-    />
+      rel="stylesheet"/>
     <!--Scripts-->
-    <script src="scripts.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="jquery.ui.datepicker-es.js"></script>
   </head>
 
   <body>
@@ -27,57 +31,64 @@
         <h1>CalcApp</h1>
       </header>
       <nav>
-        <a href="#" onclick="">STANDARD</a>
-        <a href="#" onclick="">FECHAS</a>
+        <a href="#" id="butStandard">STANDARD</a>
+        <a href="#" id="butFechas">FECHAS</a>
+        <a href="/#historial">HISTORIAL</a>
+        <a href="/#historial" id="historialMobile">HISTORIAL</a>
       </nav>
       <main>
-        <div>
-          <input type="text" readonly id="operacion" value="0" />
-          <input type="text" readonly id="operando" value="0" />
-        </div>
         <!--Calculadora standard-->
-        <div>
-          <button>C</button>
-          <button>C</button>
-          <button id="c">C</button>
-          <button id="ce" name="ce">CE</button>
-          <button id="backspace" name="backspace">
-            <i class="fas fa-backspace"></i>
-          </button>
-          <button name="9" id="but9">9</button>
-          <button name="8" id="but8">8</button>
-          <button name="7" id="but7">7</button>
-          <button id="operadorSum" name="+">+</button>
-          <button id="operadorRes" name="-">-</button>
-          <button name="6" id="but6">6</button>
-          <button name="5" id="but5">5</button>
-          <button name="4" id="but4">4</button>
-          <button id="operadorMult" name="*">x</button>
-          <button id="operadorDiv" name="/">/</button>
-          <button name="3" id="but3">3</button>
-          <button name="2" id="but2">2</button>
-          <button name="1" id="but1">1</button>
-          <button id="cambioSig">+ / -</button>
-          <button id="alCuadrado">x2</button>
-          <button>c</button>
-          <button name="0" id="but0">0</button>
-          <button name="." id="decimal">.</button>
-          <button id="calcular">=</button>
-          <button>c</button>
-        </div>
+        <section id="standard">
+          <div>
+            <input type="text" readonly id="operacion" value="0" />
+            <input type="text" readonly id="operando" value="0" />
+          </div>
+          <div>
+            <button name="9" id="but9">9</button>
+            <button name="8" id="but8">8</button>
+            <button name="7" id="but7">7</button>
+            <button id="c">C</button>
+            <button id="ce" name="ce">CE</button>
+            <button name="6" id="but6">6</button>
+            <button name="5" id="but5">5</button>
+            <button name="4" id="but4">4</button>
+            <button id="alCuadrado">x2</button>
+            <button id="backspace" name="backspace">
+              <i class="fas fa-backspace"></i>
+            </button>
+            <button name="3" id="but3">3</button>
+            <button name="2" id="but2">2</button>
+            <button name="1" id="but1">1</button>
+            <button id="operadorSum" name="+">+</button>
+            <button id="operadorRes" name="-">-</button>
+            <button name="." id="decimal">.</button>
+            <button name="0" id="but0">0</button>
+            <button id="cambioSig">+ / -</button>
+            <button id="operadorMult" name="*">x</button>
+            <button id="operadorDiv" name="/">/</button>
+            <button id="calcular">CALCULA =</button>
+          </div>
+        </section>
+        <!--Calculadora de fechas-->
+        <section id="fechas">
+          <p>Desde: <input type="text" class="datepicker" id="fecDesde"/></p>
+          <p>Hasta: <input type="text" class="datepicker" id="fecHasta"/></p>
+          <div id="diferenciaDias">
+            <h4>Diferencia en días:</h4>
+          </div>
+        </section>
       </main>
       <section id="historial">
         <h2>Historial de operaciones:</h2>
       </section>
       <footer>
         <p>Mª Victoria Peñas Miró</p>
-        <a
-          href="https://github.com/victoriapenasmiro/P1-CalcApp-interface"
-          target="_blank"
-        >
+        <!-- prettier-ignore -->
+        <a href="https://github.com/victoriapenasmiro/P1-CalcApp-interface"
+          target="_blank">
           <i class="fab fa-github"></i> ver repositorio Git
         </a>
-        <p id="right">Copyright 2020</p>
+        <p>Copyright 2020</p>
       </footer>
     </div>
   </body>

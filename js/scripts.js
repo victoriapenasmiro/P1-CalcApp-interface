@@ -27,16 +27,42 @@ window.onload = function () {
   document.getElementById("ce").addEventListener("click", borrarOperando);
   document
     .getElementById("backspace")
-    .addEventListener("click", borrarOperando); /*TODO prettier */
+    .addEventListener("click", borrarOperando);
   document.getElementById("c").addEventListener("click", borrarTodo);
   document.getElementById("cambioSig").addEventListener("click", cambioSigno);
   document.getElementById("cambioSig").addEventListener("click", cambioSigno);
   document.getElementById("alCuadrado").addEventListener("click", alCuadrado);
   document.getElementById("calcular").addEventListener("click", calcular);
+  document.getElementById("historialMobile").addEventListener("click", mostrarHistorial)
+  document.getElementById("butFechas").addEventListener("click", mostrarFechas);
+  document.getElementById("butStandard").addEventListener("click", mostrarStandard);
+  document.getElementById("fecDesde").addEventListener("change",formatearFecha);
+
+  /**
+   * Función para ejecutrar los calendarios en el formulario de fechas
+   * Formato calendario español
+   * {
+      dayNames: [ "Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado" ]
+    }
+   */
+  $(function () {
+    $(".datepicker").datepicker({
+      firstDay: 1
+      });
+  });
 };
 
 /**
- * Función para añadir los números a las casillas
+ * Función para añadir otro formato de fecha en el input
+ */
+function formatearFecha(){
+  let fecha = document.getElementById("fecDesde").value;
+  let fechaTexto = new Date(fecha);
+  document.getElementById("diferenciaDias").value += fechaTexto;
+}
+
+/**
+ * Función para añadir los numeros a las casillas
  * de la operación y del operando.
  */
 function addNumber() {
@@ -78,10 +104,10 @@ function addNumber() {
 function addSymbol() {
   let num = this.name;
   let operando = document.getElementById("operando").value;
+  decimal = false; // resteo
 
   document.getElementById("operacion").value += num;
   document.getElementById("operando").value = 0; //reseteo la casilla del operando
-  decimal = false; // resteo
 }
 
 /**
@@ -89,24 +115,58 @@ function addSymbol() {
  */
 function calcular() {
   let operacion = document.getElementById("operacion").value;
+  let res = null;
   operacion = operacion.replace(/,/g, "."); //cambio comas por . para calcularlo
-  let res = eval(operacion);
+  try {
+    res = eval(operacion);
+    if (esInfinito(res)) {
+      borrarTodo();
+    } else {
+      //convierto los . en comas para pintarlo
+      res = res.toString().replace(".", ",");
+      addHistorial(operacion);
+      document.getElementById("operacion").value = res;
+      document.getElementById("operando").value = res;
+    }
 
-  res = res.toString().replace(".",","); //convierto los . en comas para pintarlo
-  operacion = operacion.replace(/\./g, ","); //convierto los . en comas para pintarlo
-
-  //TODO FALTA QUE PINTE COMAS EN VEZ DE PUNTOS
-  document.getElementById("historial").innerHTML += "<p>" + operacion + "</p>";
-  document.getElementById("operacion").value = res;
-  document.getElementById("operando").value = res;
-
+  } catch (error) {
+    console.error(error);
+    if (error instanceof SyntaxError) {
+      alert("Error, sintaxis incorrecta");
+    }
+    borrarTodo();
+  }
   decimal = false;
   reset = true;
 }
 
 /**
- * Función para resetear los cálculos realizados
- * hasta el momento
+ * Función para añadir una operación al historial
+ * @param {string} operacion es la operacion matematica que se ha realizado
+ */
+function addHistorial(operacion){
+  //convierto los . en comas para pintarlo
+  operacion = operacion.replace(/\./g, ",");
+
+  document.getElementById("historial").innerHTML +=
+  "<p>" + operacion + "</p>";
+}
+
+/**
+ * Función para comprobar si el resultado es infinito
+ * @param {number} num es el resultado de una operacion realizadas con eval()
+ */
+function esInfinito(num) {
+  if (num === Infinity) {
+    alert("Error: Operación invalida");
+    return true;
+  } else {
+    return false;
+  }
+}
+
+/**
+ * Función para resetear los cálculos realizados hasta el momento
  */
 function borrarTodo() {
   /*¿Debe borrarse también el historial? */
@@ -154,8 +214,8 @@ function resetOperacion() {
 
 /**
  * Función para eliminar el último dígito de la operación
- * @operacion es la operacion completa que se está calculando
- * @numLen indica la longitud de digitos a eliminar
+ * @param {string} operacion es la operacion completa que se está calculando
+ * @param {number} numLen indica la longitud de digitos a eliminar
  */
 function eliminarUltimo(operacion, numLen) {
   let num = operacion.substr(0, operacion.length - numLen);
@@ -235,6 +295,7 @@ function cambioSigno() {
 
 /**
  * Función para buscar el último operador
+ * @param {string} operacion es la operacion que se está calculando
  */
 function buscoOperador(operacion) {
   let posSimbolo = null;
@@ -297,3 +358,29 @@ function obtenerNumero() {
 
   return num;
 }
+
+/**
+ * Funcion para mostrar o ocultar el historial de operaciones
+ */
+function mostrarHistorial(){
+  if (document.getElementById("historial").style.display == "none" || document.getElementById("historial").style.display == ""){
+    document.getElementById("historial").style.display = "block";
+  } else {
+    document.getElementById("historial").style.display = "none";
+  }
+}
+
+function mostrarFechas(){
+  if (document.getElementById("fechas").style.display == "none" || document.getElementById("fechas").style.display == ""){
+    document.getElementById("fechas").style.display = "block";
+    document.getElementById("standard").style.display = "none";
+  }
+}
+
+function mostrarStandard(){
+  if (document.getElementById("standard").style.display == "none" || document.getElementById("standard").style.display == ""){
+    document.getElementById("standard").style.display = "block";
+    document.getElementById("fechas").style.display = "none";
+  }
+}
+

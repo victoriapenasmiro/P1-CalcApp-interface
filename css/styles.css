@@ -33,20 +33,17 @@ nav a,
 input[type="text"] {
   background-color: white;
   color: black;
-  padding-bottom: 10px;
-  padding-top: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding: 10px;
   font-size: 1.3em;
   text-decoration: none;
   border-radius: 4px;
+  margin-bottom: 5px;
 }
 
 input[type="text"],
 input[type="text"]:focus {
   border: 1px solid #2196f3;
   margin: 5px;
-  width: 70%; /*TODO --> pasando el css lint da error, pero lo pongo para que ocupe una fila, si pongo display block no funciona*/
   outline: none;
 }
 
@@ -70,17 +67,25 @@ section {
   border-radius: 15px;
 }
 
-footer {
+.grid_container > footer {
+  background-color: rgba(255, 255, 255, 0.8);
   grid-area: footer;
-  text-align: left !important; /*TODO pasando el lindt da error pero es mejor poner esto una vez,
-                                que no poder la alineación por cada elemtno, asi me ahorro lineas de codigo*/
+  text-align: left;
   position: relative;
   border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 footer > a {
   color: #2196f3;
   text-decoration: none;
+}
+
+footer p:last-child {
+  display: inline;
+  right: 20px;
+  position: absolute;
+  margin: 0px;
 }
 
 button {
@@ -93,26 +98,27 @@ button {
   font-size: 1em;
 }
 
-button:focus {
+button:focus,
+nav a:focus {
   background-color: orange;
   outline: none;
 }
 
-/*id styles*/
-#right {
-  /*TODO CSS LINT indica: Don't use ids in selectors -- no entiendo el problema*/
-  display: inline; /*TODO CSS LINT indica no utilizar esta propiedad con margin 0, pero no se entonces como ordenarlos elementos como necesito*/
-  right: 20px;
-  position: absolute;
-  margin: 0px; /*TODO CSS LINT da error, pero necesito este margin para ubicar el elemento donde necesitp */
+main > section div:last-child > button:last-child{
+  width: 100%;
 }
 
+/*id styles*/
 #operand {
   font-weight: 700;
 }
 
 #operacion {
   color: #2196f3;
+}
+
+#fechas{
+  display: none;
 }
 
 /*class styles*/
@@ -135,13 +141,14 @@ button:focus {
 .grid_container > header,
 .grid_container > nav,
 .grid_container > main,
-.grid_container > section,
-.grid_container > footer {
+.grid_container > section {
   background-color: rgba(255, 255, 255, 0.8);
   text-align: center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.grid_container > main > div {
+.grid_container > main > div,
+.grid_container > main > section > div {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -169,14 +176,24 @@ button:focus {
     padding: 20px;
   }
 
+  .grid_container > main > section > div {
+    margin-right: 15%;
+    margin-left: 15%;
+  }
+
   header > img {
     left: 20px;
     position: absolute;
   }
 
   button {
-    padding: 20px;
+    padding: 10px;
   }
+
+  nav > a:last-child {
+    display: none;
+  }
+
 }
 
 /*responsive design mobile*/
@@ -192,13 +209,17 @@ button:focus {
 
   nav {
     display: flex;
-    flex-direction: column;
     align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   nav a {
-    margin-bottom: 5px;
-    width: 8em;
+    margin-right: 5px;
+  }
+
+  nav a:nth-child(3) {
+    display: none;
   }
 
   button {
@@ -208,4 +229,9 @@ button:focus {
   button:nth-child(19) {
     padding: 0;
   }
+
+  #historial{
+    display: none;
+  }
+
 }
