@@ -40,6 +40,7 @@ window.onload = function () {
   document.getElementById("butStandardMobile").addEventListener("click", mostrarStandard);
   document.getElementById("fecDesde").addEventListener("change",formatearFecha);
   document.getElementById("mobileMenu").addEventListener("click",menuMobile);
+  document.getElementById("optionsMenu").getElementsByTagName("a")[0].addEventListener("click",addActiveClass);
 
   /**
    * Función para ejecutrar los calendarios en el formulario de fechas
@@ -54,6 +55,28 @@ window.onload = function () {
       });
   });
 };
+
+
+
+function addActiveClass (){
+  //elimino el active al resto de elementos del menu
+  let options = document.getElementById("optionsMenu").getElementsByTagName("a");
+  options.forEach(removeActiveClass);/* da error scripts.js:64 Uncaught TypeError: options.forEach is not a function */
+
+  this.classList.add("active");
+  /* jquery https://stackoverflow.com/questions/21225745/how-to-change-menu-background-color-when-selected
+  $('#optionsMenu a').click(function(){
+  $(this).addClass('active').siblings().removeClass('active');
+});*/
+}
+
+function removeActiveClass(element){
+  if (element.classList.contains("active")){
+    element.classList.remove("active");
+  }
+}
+
+
 
 /**
  * Función para añadir otro formato de fecha en el input
@@ -175,8 +198,8 @@ function addHistorial(operacion){
   //convierto los . en comas para pintarlo
   operacion = operacion.replace(/\./g, ",");
 
-  document.getElementById("historial").innerHTML +=
-  "<p>" + operacion + "</p>";
+  document.getElementById("historial").getElementsByTagName("div")[1].innerHTML +=
+  "<p>" + operacion + ", </p>";
 }
 
 /**

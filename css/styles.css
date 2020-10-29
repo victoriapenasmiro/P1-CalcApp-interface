@@ -120,6 +120,12 @@ main > section div:last-child > button:last-child{
   display: none;
 }
 
+#historial div:last-child{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+}
+
 /*class styles*/
 .grid_container {
   display: grid;
@@ -225,28 +231,21 @@ main > section div:last-child > button:last-child{
     display: none;
   }
 
-  nav a {
-    margin-right: 5px;
-  }
-
-  nav a:nth-child(3) {
-    display: none;
-  }
-
   button {
     padding: 10px;
-  }
-
-  button:nth-child(19) {
-    padding: 0;
   }
 
   #historial{
     display: none;
   }
   
+  /*menu mobile*/
   #mobileMenu #optionsMenu {
     display: none;
+  }
+
+  #optionsMenu{
+    text-align: left;
   }
   
   #mobileMenu > a:first-child {
@@ -270,4 +269,10 @@ main > section div:last-child > button:last-child{
   i.fas.fa-times{
     display: none;
   }
+
+  .active {
+    background-color: #2196f3;
+  }
+  
+  /*end menu mobile*/
 }
