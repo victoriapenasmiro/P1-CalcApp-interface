@@ -33,82 +33,168 @@ window.onload = function () {
   document.getElementById("cambioSig").addEventListener("click", cambioSigno);
   document.getElementById("alCuadrado").addEventListener("click", alCuadrado);
   document.getElementById("calcular").addEventListener("click", calcular);
-  document.getElementById("historialMobile").addEventListener("click", mostrarHistorial)
+  document
+    .getElementById("historialMobile")
+    .addEventListener("click", mostrarHistorial);
   document.getElementById("butFechas").addEventListener("click", mostrarFechas);
-  document.getElementById("butStandard").addEventListener("click", mostrarStandard);
-  document.getElementById("butFechasMobile").addEventListener("click", mostrarFechas);
-  document.getElementById("butStandardMobile").addEventListener("click", mostrarStandard);
-  document.getElementById("calcularFecha").addEventListener("click",calcularFecha);
-  document.getElementById("mobileMenu").addEventListener("click",menuMobile);
-  document.getElementById("optionsMenu").getElementsByTagName("a")[0].addEventListener("click",addActiveClass);
-
-  /**
-   * Función para ejecutrar los calendarios en el formulario de fechas
-   * Formato calendario español
-   * {
-      
-    }
-   */
+  document
+    .getElementById("butStandard")
+    .addEventListener("click", mostrarStandard);
+  document
+    .getElementById("butFechasMobile")
+    .addEventListener("click", mostrarFechas);
+  document
+    .getElementById("butStandardMobile")
+    .addEventListener("click", mostrarStandard);
+  document
+    .getElementById("calcularFecha")
+    .addEventListener("click", calcularFecha);
+  document.getElementById("mobileMenu").addEventListener("click", menuMobile);
+  //¿Como meto un bucle aqui?
+  document
+    .getElementById("optionsMenu")
+    .getElementsByTagName("a")[0]
+    .addEventListener("click", addActiveClass);
+  document
+    .getElementById("optionsMenu")
+    .getElementsByTagName("a")[1]
+    .addEventListener("click", addActiveClass);
+  document
+    .getElementById("optionsMenu")
+    .getElementsByTagName("a")[2]
+    .addEventListener("click", addActiveClass);
 
   //calendario en español
-  $.datepicker.regional['es'] = {
-    closeText: 'Cerrar',
-    prevText: '< Ant',
-    nextText: 'Sig >',
-    currentText: 'Hoy',
-    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
-    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
-    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
-    weekHeader: 'Sm',
-    dateFormat: 'dd/mm/yy',
+  $.datepicker.regional["es"] = {
+    closeText: "Cerrar",
+    prevText: "< Ant",
+    nextText: "Sig >",
+    currentText: "Hoy",
+    monthNames: [
+      "Enero",
+      "Febrero",
+      "Marzo",
+      "Abril",
+      "Mayo",
+      "Junio",
+      "Julio",
+      "Agosto",
+      "Septiembre",
+      "Octubre",
+      "Noviembre",
+      "Diciembre",
+    ],
+    monthNamesShort: [
+      "Ene",
+      "Feb",
+      "Mar",
+      "Abr",
+      "May",
+      "Jun",
+      "Jul",
+      "Ago",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dic",
+    ],
+    dayNames: [
+      "Domingo",
+      "Lunes",
+      "Martes",
+      "Miércoles",
+      "Jueves",
+      "Viernes",
+      "Sábado",
+    ],
+    dayNamesShort: ["Dom", "Lun", "Mar", "Mié", "Juv", "Vie", "Sáb"],
+    dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sá"],
+    weekHeader: "Sm",
+    dateFormat: "dd/mm/yy",
     firstDay: 1,
     isRTL: false,
     showMonthAfterYear: false,
-    yearSuffix: ''
-    };
-  $.datepicker.setDefaults($.datepicker.regional['es']);
+    yearSuffix: "",
+  };
+  $.datepicker.setDefaults($.datepicker.regional["es"]);
 
   $(function () {
     $(".datepicker").datepicker({
-      dateFormat: "dd/mm/yy, DD d 'de' MM 'del' yy"
-      });
+      dateFormat: "dd/mm/yy, DD d 'de' MM 'del' yy",
+    });
   });
 };
 
+/**
+ * Funcion para activar la clase active en el menu mobile
+ */
+function addActiveClass() {
+  let options = document
+    .getElementById("optionsMenu")
+    .getElementsByTagName("a");
+  //lo convierto a Array para que funcione con el forEach
+  let optionsList = Array.prototype.slice.call(options);
 
-
-function addActiveClass (){
-  //elimino el active al resto de elementos del menu
-  let options = document.getElementById("optionsMenu").getElementsByTagName("a");
-  options.forEach(removeActiveClass);/* da error scripts.js:64 Uncaught TypeError: options.forEach is not a function */
+  optionsList.forEach(removeActiveClass);
 
   this.classList.add("active");
-  /* jquery https://stackoverflow.com/questions/21225745/how-to-change-menu-background-color-when-selected
-  TODOOO
-  $('#optionsMenu a').click(function(){
-  $(this).addClass('active').siblings().removeClass('active');
-});*/
 }
 
-function removeActiveClass(element){
-  if (element.classList.contains("active")){
+/**
+ * Función para eliminar la clase active al elemento que la contenga
+ * @param {a} element option responsive menu
+ */
+function removeActiveClass(element) {
+  if (element.classList.contains("active")) {
     element.classList.remove("active");
   }
 }
 
+/**
+ * Función para calcular la diferencia de dias entre dos fechas
+ */
+function calcularFecha() {
+  const fechaDesde = document
+    .getElementById("fecDesde")
+    .value.substr(0, 10)
+    .split("/");
+  const fechaHasta = document
+    .getElementById("fecHasta")
+    .value.substr(0, 10)
+    .split("/");
+  const desde = new Date(formatearFecha(fechaDesde));
+  const hasta = new Date(formatearFecha(fechaHasta));
+  let diffTime = null;
+  let diffDays = null;
 
+  if (desde > hasta) {
+    alert("Error: La fecha desde no puede ser superior a la fecha Hasta");
+  } else {
+    diffTime = Math.abs(hasta - desde);
+    diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    if (Number.isNaN(diffDays)) {
+      alert("ERROR: No has indicado ninguna fecha");
+    } else {
+      document.getElementById("diferenciaDias").innerHTML =
+        "<h4> Hay " + diffDays + " días de diferencia.</h4>";
+    }
+  }
+}
 
 /**
- * Función para añadir otro formato de fecha en el input
- * 
- * ver https://stackoverflow.com/questions/46879272/jquery-ui-datepickers-get-date-and-day-name-on-one-clickTODO
+ * Función para formatear una fecha al formato ISO
+ * @param {array} fecha fecha a formatear en formato dd,mm,año
  */
-function calcularFecha(){
-  let fechaDesde = document.getElementById("fecDesde").value;
-  let fechaHasta = document.getElementById("fecHasta").value;
-  let fechaTexto = new Date(fecha);
+function formatearFecha(fecha) {
+  let fechaFormateada = "";
+  fecha.reverse().forEach(function (i, index, num) {
+    if (index != fecha.length - 1) {
+      fechaFormateada += num[index] + "-";
+    } else {
+      fechaFormateada += num[index];
+    }
+  });
+  return fechaFormateada;
 }
 
 /**
@@ -116,10 +202,10 @@ function calcularFecha(){
  */
 function menuMobile() {
   let link = document.getElementById("optionsMenu");
-  let img = document.getElementsByTagName('img')[0];
-  let menu = document.getElementsByTagName('header')[0];
-  let iconTanca = document.getElementsByClassName('fas fa-times')[0];
-  let iconPrincipal = document.getElementsByClassName('fa fa-bars')[0];
+  let img = document.getElementsByTagName("img")[0];
+  let menu = document.getElementsByTagName("header")[0];
+  let iconTanca = document.getElementsByClassName("fas fa-times")[0];
+  let iconPrincipal = document.getElementsByClassName("fa fa-bars")[0];
   if (link.style.display === "block") {
     link.style.display = "none";
     img.style.display = "block";
@@ -167,7 +253,6 @@ function addNumber() {
       }
     }
   } else {
-    //TODO mostrar mensaje de error:
     alert("Un mismo número no puede tener dos comas decimales");
   }
 }
@@ -181,7 +266,8 @@ function addSymbol() {
   decimal = false; // resteo
 
   document.getElementById("operacion").value += num;
-  document.getElementById("operando").value = 0; //reseteo la casilla del operando
+  //reseteo la casilla del operando
+  document.getElementById("operando").value = 0;
 }
 
 /**
@@ -202,7 +288,6 @@ function calcular() {
       document.getElementById("operacion").value = res;
       document.getElementById("operando").value = res;
     }
-
   } catch (error) {
     console.error(error);
     if (error instanceof SyntaxError) {
@@ -218,12 +303,13 @@ function calcular() {
  * Función para añadir una operación al historial
  * @param {string} operacion es la operacion matematica que se ha realizado
  */
-function addHistorial(operacion){
+function addHistorial(operacion) {
   //convierto los . en comas para pintarlo
   operacion = operacion.replace(/\./g, ",");
 
-  document.getElementById("historial").getElementsByTagName("div")[1].innerHTML +=
-  "<p>" + operacion + ", </p>";
+  document
+    .getElementById("historial")
+    .getElementsByTagName("div")[1].innerHTML += "<p>" + operacion + ", </p>";
 }
 
 /**
@@ -293,7 +379,7 @@ function resetOperacion() {
  */
 function eliminarUltimo(operacion, numLen) {
   let num = operacion.substr(0, operacion.length - numLen);
-
+  
   document.getElementById("operacion").value = num;
 
   return num;
@@ -436,25 +522,40 @@ function obtenerNumero() {
 /**
  * Funcion para mostrar o ocultar el historial de operaciones
  */
-function mostrarHistorial(){
-  if (document.getElementById("historial").style.display == "none" || document.getElementById("historial").style.display == ""){
+function mostrarHistorial() {
+  if (
+    document.getElementById("historial").style.display == "none" ||
+    document.getElementById("historial").style.display == ""
+  ) {
     document.getElementById("historial").style.display = "block";
   } else {
     document.getElementById("historial").style.display = "none";
   }
 }
 
-function mostrarFechas(){
-  if (document.getElementById("fechas").style.display == "none" || document.getElementById("fechas").style.display == ""){
+function mostrarFechas() {
+  if (
+    document.getElementById("fechas").style.display == "none" ||
+    document.getElementById("fechas").style.display == ""
+  ) {
     document.getElementById("fechas").style.display = "block";
     document.getElementById("standard").style.display = "none";
+    //al cambiar de calculadora depuro el historico de la standard
+    document.getElementById("operacion").value = 0;
+    document.getElementById("operando").value = 0;
+    document.getElementById("historial").innerHTML =
+      "<div><h2>Historial de operaciones:</h2></div><div> <!--operaciones--></div>";
   }
 }
 
-function mostrarStandard(){
-  if (document.getElementById("standard").style.display == "none" || document.getElementById("standard").style.display == ""){
+function mostrarStandard() {
+  if (
+    document.getElementById("standard").style.display == "none" ||
+    document.getElementById("standard").style.display == ""
+  ) {
     document.getElementById("standard").style.display = "block";
     document.getElementById("fechas").style.display = "none";
+    //al cambiar de calculadora depuro el resultado de la de fechas
+    document.getElementById("diferenciaDias").innerHTML = "<h4>RESULTADO</h4>";
   }
 }
-

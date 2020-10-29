@@ -220,7 +220,6 @@ main > section#standard div:last-child > button:last-child{
   #mobileMenu{
     display: none;
   }
-
 }
 
 /*responsive design mobile*/
@@ -287,7 +286,7 @@ main > section#standard div:last-child > button:last-child{
   }
 
   .active {
-    background-color: #2196f3;
+    color: #2196f3!important;
   }
   /*end menu mobile*/
 }
