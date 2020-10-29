@@ -38,7 +38,7 @@ window.onload = function () {
   document.getElementById("butStandard").addEventListener("click", mostrarStandard);
   document.getElementById("butFechasMobile").addEventListener("click", mostrarFechas);
   document.getElementById("butStandardMobile").addEventListener("click", mostrarStandard);
-  document.getElementById("fecDesde").addEventListener("change",formatearFecha);
+  document.getElementById("calcularFecha").addEventListener("click",calcularFecha);
   document.getElementById("mobileMenu").addEventListener("click",menuMobile);
   document.getElementById("optionsMenu").getElementsByTagName("a")[0].addEventListener("click",addActiveClass);
 
@@ -46,12 +46,33 @@ window.onload = function () {
    * Función para ejecutrar los calendarios en el formulario de fechas
    * Formato calendario español
    * {
-      dayNames: [ "Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado" ]
+      
     }
    */
+
+  //calendario en español
+  $.datepicker.regional['es'] = {
+    closeText: 'Cerrar',
+    prevText: '< Ant',
+    nextText: 'Sig >',
+    currentText: 'Hoy',
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+    weekHeader: 'Sm',
+    dateFormat: 'dd/mm/yy',
+    firstDay: 1,
+    isRTL: false,
+    showMonthAfterYear: false,
+    yearSuffix: ''
+    };
+  $.datepicker.setDefaults($.datepicker.regional['es']);
+
   $(function () {
     $(".datepicker").datepicker({
-      firstDay: 1
+      dateFormat: "dd/mm/yy, DD d 'de' MM 'del' yy"
       });
   });
 };
@@ -65,6 +86,7 @@ function addActiveClass (){
 
   this.classList.add("active");
   /* jquery https://stackoverflow.com/questions/21225745/how-to-change-menu-background-color-when-selected
+  TODOOO
   $('#optionsMenu a').click(function(){
   $(this).addClass('active').siblings().removeClass('active');
 });*/
@@ -80,11 +102,13 @@ function removeActiveClass(element){
 
 /**
  * Función para añadir otro formato de fecha en el input
+ * 
+ * ver https://stackoverflow.com/questions/46879272/jquery-ui-datepickers-get-date-and-day-name-on-one-clickTODO
  */
-function formatearFecha(){
-  let fecha = document.getElementById("fecDesde").value;
+function calcularFecha(){
+  let fechaDesde = document.getElementById("fecDesde").value;
+  let fechaHasta = document.getElementById("fecHasta").value;
   let fechaTexto = new Date(fecha);
-  document.getElementById("diferenciaDias").value += fechaTexto;
 }
 
 /**

@@ -9,7 +9,9 @@ Krona One para títulos.
 1. Se ha optimizado la función *cambioSigno_old()*. Debido a esta optimización, la función *buscarNumero()*
 ha quedado obsoleta y se ha etiquetado como @deprecated.
 2. Se ha añadido un ancla por si hay muchas operaciones y crea un scroll.
-3, Se ha creado un menu responsive, exclusivo para móviles. Me he basado en: https://www.w3schools.com/howto/howto_js_mobile_navbar.asp
+3. Se ha creado un menu responsive, exclusivo para móviles. Me he basado en: https://www.w3schools.com/howto/howto_js_mobile_navbar.asp
+4. Se ha utilizado el snipet *<!-- prettier-ignore -->* en el HTML sobre aquellas lineas que no se deberían formatear el doc con Prettier.
+5. Para la calculadora de fecha, se ha traduccido el calendario de DatePicker a español.
 
 ## ⏳ AMPLIACIONES PREVISTAS:
 1. Controlar que si el último valor es un operador y a continuación se escribe otro, debe sustituirse y añadirse a la operación.

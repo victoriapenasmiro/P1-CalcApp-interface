@@ -33,7 +33,6 @@ input[type="text"] {
   background-color: white;
   color: black;
   padding: 10px;
-  font-size: 1.3em;
   text-decoration: none;
   border-radius: 4px;
   margin-bottom: 5px;
@@ -51,9 +50,11 @@ input[type="text"]:nth-child(2) {
 }
 
 nav a:hover,
-button:hover {
+#standard button:hover, /*TODO porque si pongo button:hover no me aplica a todos los buttons?*/
+#fechas button:hover {
   background-color: grey;
   color: black;
+  cursor: pointer;
 }
 
 main {
@@ -87,7 +88,15 @@ footer p:last-child {
   margin: 0px;
 }
 
-button {
+#fechas button{
+  margin: 10px;
+  padding: 10px;
+  background-color: #2196f3;
+  border: none;
+  border-radius: 5px;
+}
+
+#standard button {
   cursor: pointer;
   background-color: #cddc398a;
   border: 1px solid orange;
@@ -95,19 +104,19 @@ button {
   width: 20%;
   font-weight: 700;
   font-size: 1em;
+  padding: 10px;
 }
 
-button:focus,
+#standard button:focus,
 nav a:focus {
   background-color: orange;
   outline: none;
 }
 
-main > section div:last-child > button:last-child{
+main > section#standard div:last-child > button:last-child{
   width: 100%;
 }
 
-/*id styles*/
 #operand {
   font-weight: 700;
 }
@@ -126,7 +135,10 @@ main > section div:last-child > button:last-child{
     flex-direction: row-reverse;
 }
 
-/*class styles*/
+#standard input[type="text"]{
+  font-size: 1.3em;
+}
+
 .grid_container {
   display: grid;
   grid:
@@ -197,8 +209,12 @@ main > section div:last-child > button:last-child{
     height: 80px;
 }
 
-  button {
-    padding: 10px;
+  #fechas input {
+    min-width: 45%;
+  }
+
+  #fechas button{
+    width: 20%;
   }
 
   #mobileMenu{
@@ -231,14 +247,14 @@ main > section div:last-child > button:last-child{
     display: none;
   }
 
-  button {
-    padding: 10px;
-  }
-
   #historial{
     display: none;
   }
   
+  #fechas input {
+    min-width: 90%;
+  }
+
   /*menu mobile*/
   #mobileMenu #optionsMenu {
     display: none;
@@ -273,6 +289,5 @@ main > section div:last-child > button:last-child{
   .active {
     background-color: #2196f3;
   }
-  
   /*end menu mobile*/
 }
