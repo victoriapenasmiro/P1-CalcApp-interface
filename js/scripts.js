@@ -108,19 +108,15 @@ window.onload = function () {
       "Sábado",
     ],
     dayNamesShort: ["Dom", "Lun", "Mar", "Mié", "Juv", "Vie", "Sáb"],
-    dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sá"],
     weekHeader: "Sm",
-    dateFormat: "dd/mm/yy",
-    firstDay: 1,
-    isRTL: false,
-    showMonthAfterYear: false,
-    yearSuffix: "",
   };
   $.datepicker.setDefaults($.datepicker.regional["es"]);
 
   $(function () {
     $(".datepicker").datepicker({
       dateFormat: "dd/mm/yy, DD d 'de' MM 'del' yy",
+      firstDay: 1,
+      dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sá"],
     });
   });
 };
@@ -154,29 +150,30 @@ function removeActiveClass(element) {
  * Función para calcular la diferencia de dias entre dos fechas
  */
 function calcularFecha() {
-  const fechaDesde = document
+  const FECHADESDE = document
     .getElementById("fecDesde")
     .value.substr(0, 10)
     .split("/");
-  const fechaHasta = document
+  const FECHAHASTA = document
     .getElementById("fecHasta")
     .value.substr(0, 10)
     .split("/");
-  const desde = new Date(formatearFecha(fechaDesde));
-  const hasta = new Date(formatearFecha(fechaHasta));
+  const DESDE = new Date(formatearFecha(FECHADESDE));
+  const HASTA = new Date(formatearFecha(FECHAHASTA));
   let diffTime = null;
   let diffDays = null;
 
-  if (desde > hasta) {
+  if (DESDE > HASTA) {
     alert("Error: La fecha desde no puede ser superior a la fecha Hasta");
   } else {
-    diffTime = Math.abs(hasta - desde);
+    diffTime = Math.abs(HASTA - DESDE);
     diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     if (Number.isNaN(diffDays)) {
       alert("ERROR: No has indicado ninguna fecha");
     } else {
       document.getElementById("diferenciaDias").innerHTML =
         "<h4> Hay " + diffDays + " días de diferencia.</h4>";
+      addHistorial((HASTA.toDateString() + " - " + DESDE.toDateString()),diffDays + " días");
     }
   }
 }
@@ -284,7 +281,7 @@ function calcular() {
     } else {
       //convierto los . en comas para pintarlo
       res = res.toString().replace(".", ",");
-      addHistorial(operacion);
+      addHistorial(operacion,res);
       document.getElementById("operacion").value = res;
       document.getElementById("operando").value = res;
     }
@@ -303,13 +300,13 @@ function calcular() {
  * Función para añadir una operación al historial
  * @param {string} operacion es la operacion matematica que se ha realizado
  */
-function addHistorial(operacion) {
+function addHistorial(operacion,resultado) {
   //convierto los . en comas para pintarlo
   operacion = operacion.replace(/\./g, ",");
 
   document
     .getElementById("historial")
-    .getElementsByTagName("div")[1].innerHTML += "<p>" + operacion + ", </p>";
+    .getElementsByTagName("div")[1].innerHTML += "<p>" + operacion + " = " + resultado + "  // </p>";
 }
 
 /**
@@ -329,7 +326,6 @@ function esInfinito(num) {
  * Función para resetear los cálculos realizados hasta el momento
  */
 function borrarTodo() {
-  /*¿Debe borrarse también el historial? */
   document.getElementById("operacion").value = 0;
   document.getElementById("operando").value = 0;
   decimal = false;
@@ -379,51 +375,10 @@ function resetOperacion() {
  */
 function eliminarUltimo(operacion, numLen) {
   let num = operacion.substr(0, operacion.length - numLen);
-  
+
   document.getElementById("operacion").value = num;
 
   return num;
-}
-
-/**
- * Función para cambiar el signo del último número escrito
- * @deprecated se ha optimizado y sustituido por cambioSigno()
- */
-function cambioSigno_old() {
-  let operacion = document.getElementById("operacion").value;
-  let ultimoValor = operacion.substr(-1, 1);
-  /*obtengo la posición del ultimo operador para saber el
-    número completo al que tengo que cambiar el signo*/
-  let ultimoOperador = buscoOperador(operacion);
-
-  /*controlo que el ultimo valor no sea un operador,
-    ya que el cambio de signo aplica a los números únicamente*/
-  if (operadores.indexOf(ultimoValor) == -1) {
-    let num = null; //obtengo el último num completo
-    num = obtenerNumero();
-    if (num != null && ultimoOperador != null) {
-      let simbolo = operacion.substr(ultimoOperador, 1);
-      let numLen = operacion.length - (ultimoOperador + 1);
-      eliminarUltimo(operacion, numLen); //elimino el último valor
-
-      if (simbolo != "-") {
-        document.getElementById("operacion").value += "(-" + num + ")";
-      } else {
-        document.getElementById("operacion").value += "(+" + num + ")";
-      }
-    } else {
-      eliminarUltimo(operacion, operacion.length); //elimino el último valor
-      document.getElementById("operacion").value = "(-" + num + ")";
-    }
-  } else {
-    let simbolo = operacion.substr(ultimoOperador, 1);
-    eliminarUltimo(operacion, 1);
-    if (simbolo != "-") {
-      document.getElementById("operacion").value += "-";
-    } else {
-      document.getElementById("operacion").value += "+";
-    }
-  }
 }
 
 /**
@@ -496,6 +451,49 @@ function alCuadrado() {
 }
 
 /**
+ * Funcion para mostrar o ocultar el historial de operaciones
+ */
+function mostrarHistorial() {
+  if (
+    document.getElementById("historial").style.display == "none" ||
+    document.getElementById("historial").style.display == ""
+  ) {
+    document.getElementById("historial").style.display = "block";
+  } else {
+    document.getElementById("historial").style.display = "none";
+  }
+}
+
+/**
+ * Funcion para mostrar la calculadora de fechas y ocultar la standard
+ */
+function mostrarFechas() {
+  if (
+    document.getElementById("fechas").style.display == "none" ||
+    document.getElementById("fechas").style.display == ""
+  ) {
+    document.getElementById("fechas").style.display = "block";
+    document.getElementById("standard").style.display = "none";
+    //al cambiar de calculadora reseteo las casillas de la standard
+    document.getElementById("operacion").value = 0;
+    document.getElementById("operando").value = 0;
+  }
+}
+
+/**
+ * Funcion para mostrar la calculadora standard y ocultar la de fechas
+ */
+function mostrarStandard() {
+  if (
+    document.getElementById("standard").style.display == "none" ||
+    document.getElementById("standard").style.display == ""
+  ) {
+    document.getElementById("standard").style.display = "block";
+    document.getElementById("fechas").style.display = "none";
+  }
+}
+
+/**
  * Función que devuelve el último número que se ha cargado
  * @deprecated ya no se necesita porqué en el input con id="operando"
  * ya obtenemos el último número cargado.
@@ -520,42 +518,42 @@ function obtenerNumero() {
 }
 
 /**
- * Funcion para mostrar o ocultar el historial de operaciones
+ * Función para cambiar el signo del último número escrito
+ * @deprecated se ha optimizado y sustituido por cambioSigno()
  */
-function mostrarHistorial() {
-  if (
-    document.getElementById("historial").style.display == "none" ||
-    document.getElementById("historial").style.display == ""
-  ) {
-    document.getElementById("historial").style.display = "block";
+function cambioSigno_old() {
+  let operacion = document.getElementById("operacion").value;
+  let ultimoValor = operacion.substr(-1, 1);
+  /*obtengo la posición del ultimo operador para saber el
+    número completo al que tengo que cambiar el signo*/
+  let ultimoOperador = buscoOperador(operacion);
+
+  /*controlo que el ultimo valor no sea un operador,
+    ya que el cambio de signo aplica a los números únicamente*/
+  if (operadores.indexOf(ultimoValor) == -1) {
+    let num = null; //obtengo el último num completo
+    num = obtenerNumero();
+    if (num != null && ultimoOperador != null) {
+      let simbolo = operacion.substr(ultimoOperador, 1);
+      let numLen = operacion.length - (ultimoOperador + 1);
+      eliminarUltimo(operacion, numLen); //elimino el último valor
+
+      if (simbolo != "-") {
+        document.getElementById("operacion").value += "(-" + num + ")";
+      } else {
+        document.getElementById("operacion").value += "(+" + num + ")";
+      }
+    } else {
+      eliminarUltimo(operacion, operacion.length); //elimino el último valor
+      document.getElementById("operacion").value = "(-" + num + ")";
+    }
   } else {
-    document.getElementById("historial").style.display = "none";
-  }
-}
-
-function mostrarFechas() {
-  if (
-    document.getElementById("fechas").style.display == "none" ||
-    document.getElementById("fechas").style.display == ""
-  ) {
-    document.getElementById("fechas").style.display = "block";
-    document.getElementById("standard").style.display = "none";
-    //al cambiar de calculadora depuro el historico de la standard
-    document.getElementById("operacion").value = 0;
-    document.getElementById("operando").value = 0;
-    document.getElementById("historial").innerHTML =
-      "<div><h2>Historial de operaciones:</h2></div><div> <!--operaciones--></div>";
-  }
-}
-
-function mostrarStandard() {
-  if (
-    document.getElementById("standard").style.display == "none" ||
-    document.getElementById("standard").style.display == ""
-  ) {
-    document.getElementById("standard").style.display = "block";
-    document.getElementById("fechas").style.display = "none";
-    //al cambiar de calculadora depuro el resultado de la de fechas
-    document.getElementById("diferenciaDias").innerHTML = "<h4>RESULTADO</h4>";
+    let simbolo = operacion.substr(ultimoOperador, 1);
+    eliminarUltimo(operacion, 1);
+    if (simbolo != "-") {
+      document.getElementById("operacion").value += "-";
+    } else {
+      document.getElementById("operacion").value += "+";
+    }
   }
 }
