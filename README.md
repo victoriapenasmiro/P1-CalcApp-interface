@@ -4,9 +4,7 @@ Repo de la Practica 1 - CalcApp de interfaces
 Se han realizado todos los puntos marcados tanto de DIW como de DWEC. Todas las funciones se han comentado con JSDOC.
 
 __DWIC:__
-* Se ha utilizado Grid para el diseño de la arquitectura general, según el [sketch versión Desktop][1] y el [sketch versión *Mobile*][2] propuestos. 
-[1]: https://drive.google.com/file/d/1JvRgoQzCdHua37YlM8MeBKoIX-MiGQhb/view
-[2]: https://drive.google.com/file/d/1No_gH7zTcxFSWVrcJRQdE3wpqTHv5KVR/view
+* Se ha utilizado Grid para el diseño de la arquitectura general, según el [sketch versión Desktop](https://drive.google.com/file/d/1JvRgoQzCdHua37YlM8MeBKoIX-MiGQhb/view) y el [sketch versión *Mobile*](https://drive.google.com/file/d/1No_gH7zTcxFSWVrcJRQdE3wpqTHv5KVR/view) propuestos. 
 * Se ha utilizado Flexbox para la botonera de la calculadora.
 * Se han utilizado Google Fonts y FontAwesome.
 * Se ha utilizado validadores de HTML5 y CSS:
@@ -32,7 +30,7 @@ Se han configurado todas las funcionalidades indicadas en la [práctica](https:/
 Open Sans Condensed para cualquier texto que no sea un título.
 Krona One para títulos.
 
-## 🌟 AMPLIACIONES REALIZADAS:
+## 🌟 Ampliaciones realizadas:
 1. Se ha optimizado la función *cambioSigno_old()*. Debido a esta optimización, la función *buscarNumero()*
 ha quedado obsoleta y se ha etiquetado como @deprecated.
 2. Se ha añadido un ancla por si hay muchas operaciones y crea un scroll.
@@ -40,11 +38,12 @@ ha quedado obsoleta y se ha etiquetado como @deprecated.
 4. Se controla que en un mismo número el usuario no pueda poner dos decimales.
 5. Se ha utilizado el snipet *<!-- prettier-ignore -->* en el HTML sobre aquellas lineas que no se deberían formatear con Prettier.
 6. Para la calculadora de fechas, se ha traducido el calendario de DatePicker a español.
+7. En la función *addsymbol()* se controla que si el último valor es un operador __("*" o "/")__ y a continuación se escribe otro, se sustituye el anterior introducido para no provocar una excepción.
 
-## ⏳ AMPLIACIONES PREVISTAS:
-1. Controlar que si el último valor es un operador y a continuación se escribe otro, debe sustituirse y añadirse a la operación.
+## ⏳ Ampliaciones previstas:
+1. Incorporar un botón para calcular porcentajes.
 
-## PUNTOS PENDIENTES DE REALIZAR
+## PUNTOS PENDIENTES DE REALIZAR:
 
 __utilizar variables de CSS__ <br/>
 __PASAR CSS LINT ANTES DE ENTREGAR__ <br/>

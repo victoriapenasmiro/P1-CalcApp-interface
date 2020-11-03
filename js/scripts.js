@@ -50,7 +50,6 @@ window.onload = function () {
     .getElementById("calcularFecha")
     .addEventListener("click", calcularFecha);
   document.getElementById("mobileMenu").addEventListener("click", menuMobile);
-  //¿Como meto un bucle aqui?
   document
     .getElementById("optionsMenu")
     .getElementsByTagName("a")[0]
@@ -162,18 +161,32 @@ function calcularFecha() {
   const HASTA = new Date(formatearFecha(FECHAHASTA));
   let diffTime = null;
   let diffDays = null;
+  let campoDesde = document.getElementById("fecDesde").value;
+  let campoHasta = document.getElementById("fecHasta").value;
 
   if (DESDE > HASTA) {
-    alert("Error: La fecha desde no puede ser superior a la fecha Hasta");
+    document.getElementById("fecDesde").value =
+      "Error: fecha desde > a fecha Hasta";
   } else {
     diffTime = Math.abs(HASTA - DESDE);
     diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     if (Number.isNaN(diffDays)) {
-      alert("ERROR: No has indicado ninguna fecha");
+      if (campoDesde == "") {
+        document.getElementById("fecDesde").value =
+          "ERROR: No has indicado ninguna fecha";
+          addHistorial("ERROR","Fecha Desde vacía");
+      } else if (campoHasta == "") {
+        document.getElementById("fecHasta").value =
+          "ERROR: No has indicado ninguna fecha";
+          addHistorial("ERROR","Fecha Hasta vacía");
+      }
     } else {
       document.getElementById("diferenciaDias").innerHTML =
         "<h4> Hay " + diffDays + " días de diferencia.</h4>";
-      addHistorial((HASTA.toDateString() + " - " + DESDE.toDateString()),diffDays + " días");
+      addHistorial(
+        HASTA.toDateString() + " - " + DESDE.toDateString(),
+        diffDays + " días"
+      );
     }
   }
 }
@@ -259,8 +272,14 @@ function addNumber() {
  */
 function addSymbol() {
   let num = this.name;
-  let operando = document.getElementById("operando").value;
+  let operacion = document.getElementById("operacion").value;
+  let ultimoOperador = operacion.charAt(operacion.length-1);
   decimal = false; // resteo
+
+  //Si se intenta poner dos operadores seguidos, sustituyo el antiguo por el nuevo indicado
+  if ((num == "*" || num == "/") && (ultimoOperador == "*" || ultimoOperador == "/")){
+    eliminarUltimo(operacion, 1);
+  }
 
   document.getElementById("operacion").value += num;
   //reseteo la casilla del operando
@@ -277,21 +296,23 @@ function calcular() {
   try {
     res = eval(operacion);
     if (esInfinito(res)) {
-      borrarTodo();
+      addHistorial(operacion,"ERROR: Operación invalida");
     } else {
       //convierto los . en comas para pintarlo
       res = res.toString().replace(".", ",");
-      addHistorial(operacion,res);
+      addHistorial(operacion, res);
       document.getElementById("operacion").value = res;
       document.getElementById("operando").value = res;
+      borrarTodo();
     }
   } catch (error) {
-    console.error(error);
     if (error instanceof SyntaxError) {
-      alert("Error, sintaxis incorrecta");
+      document.getElementById("operacion").value = "ERROR: sintaxis incorrecta";
+      document.getElementById("operando").value = "ERROR: sintaxis incorrecta";
+      addHistorial(operacion, "ERROR: sintaxis incorrecta");
     }
-    borrarTodo();
   }
+
   decimal = false;
   reset = true;
 }
@@ -300,13 +321,14 @@ function calcular() {
  * Función para añadir una operación al historial
  * @param {string} operacion es la operacion matematica que se ha realizado
  */
-function addHistorial(operacion,resultado) {
+function addHistorial(operacion, resultado) {
   //convierto los . en comas para pintarlo
   operacion = operacion.replace(/\./g, ",");
 
   document
     .getElementById("historial")
-    .getElementsByTagName("div")[1].innerHTML += "<p>" + operacion + " = " + resultado + "  // </p>";
+    .getElementsByTagName("div")[1].innerHTML +=
+    "<p>" + operacion + " = " + resultado + "  // </p>";
 }
 
 /**
@@ -315,7 +337,8 @@ function addHistorial(operacion,resultado) {
  */
 function esInfinito(num) {
   if (num === Infinity) {
-    alert("Error: Operación invalida");
+    document.getElementById("operacion").value = "ERROR: Operación invalida";
+    document.getElementById("operando").value = "ERROR: Operación invalida";
     return true;
   } else {
     return false;
