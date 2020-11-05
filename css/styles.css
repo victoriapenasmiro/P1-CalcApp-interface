@@ -1,5 +1,7 @@
-:root{
+:root {
   --main-color: #2196f3;
+  --shadow-first: #00000033;
+  --shadow-secondly: rgba(0, 0, 0, 0.19);
 }
 
 body {
@@ -62,7 +64,7 @@ label {
 }
 
 nav a:hover,
-#standard button:hover, /*TODO porque si pongo button:hover no me aplica a todos los buttons?*/
+#standard button:hover,
 #fechas button:hover {
   background-color: grey;
   color: black;
@@ -85,7 +87,7 @@ section {
   text-align: left;
   position: relative;
   border-radius: 15px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 4px 8px 0 var(--shadow-first), 0 6px 20px 0 var(--shadow-secondly);
 }
 
 footer > a {
@@ -196,7 +198,7 @@ main > section#standard div:last-child > button:last-child{
   background-color: var(--main-color);
   border-radius: 15px;
   margin: 0 auto;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 4px 8px 0 var(--shadow-first), 0 6px 20px 0 var(--shadow-secondly);
 }
 
 .grid_container > div,
@@ -206,7 +208,7 @@ main > section#standard div:last-child > button:last-child{
 .grid_container > section {
   background-color: rgba(255, 255, 255, 0.8);
   text-align: center;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 4px 8px 0 var(--shadow-first), 0 6px 20px 0 var(--shadow-secondly);
 }
 
 .grid_container > main > div,

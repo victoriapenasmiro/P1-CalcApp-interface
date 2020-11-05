@@ -401,23 +401,20 @@ function exceptionSyntax(error){
 function calcular() {
   let operacion = document.getElementById("operacion").value;
   let res = null;
-  operacion = operacion.replace(/,/g, "."); //cambio comas por . para calcularlo
+  //cambio comas por . para calcularlo
+  operacion = operacion.replace(/,/g, ".");
   try {
     res = eval(operacion);
-    if (esInfinito(res)) {
-      addHistorial(operacion, "ERROR: Operación invalida");
-    } else {
-      //convierto los . en comas para pintarlo
-      res = res.toString().replace(".", ",");
-      addHistorial(operacion, res);
-      document.getElementById("operacion").value = res;
-      document.getElementById("operando").value = res;
-      borrarTodo();
-    }
+    if (!isFinite(res)) throw "ERROR: Operación invalida";
+    //convierto los . en comas para pintarlo
+    res = res.toString().replace(".", ",");
+    document.getElementById("operacion").value = res;
+    document.getElementById("operando").value = res;
+    borrarTodo();
   } catch (error) {
-    if (error instanceof SyntaxError) {
-      exceptionSyntax(operacion,error);
-    }
+    res = exceptionSyntax(error);
+  } finally {
+    addHistorial(operacion, res);
   }
 
   decimal = false;
@@ -441,6 +438,8 @@ function addHistorial(operacion, resultado) {
 /**
  * Función para comprobar si el resultado es infinito
  * @param {number} num es el resultado de una operacion realizadas con eval()
+ * @deprecated obsoleta porqué ya existe una función en js que permite comprobar
+ * si un número es o no Infinito con isFinite()
  */
 function esInfinito(num) {
   if (num === Infinity) {

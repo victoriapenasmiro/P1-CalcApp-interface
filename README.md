@@ -31,8 +31,7 @@ Open Sans Condensed para cualquier texto que no sea un título.
 Krona One para títulos.
 
 ## 🌟 Ampliaciones realizadas:
-1. Se ha optimizado la función *cambioSigno_old()*. Debido a esta optimización, la función *buscarNumero()*
-ha quedado obsoleta y se ha etiquetado como @deprecated.
+1. Se ha optimizado la función *cambioSigno_old()*. Debido a esta optimización, la función *buscarNumero()* ha quedado obsoleta y se ha etiquetado como *@deprecated*.
 2. Se ha añadido un ancla por si hay muchas operaciones y crea un scroll.
 3. Se ha creado un menu responsive, exclusivo para móviles con una resolución inferior a 700px. Me he basado en el siguiente [tutorial](https://www.w3schools.com/howto/howto_js_mobile_navbar.asp).
 4. Se controla que en un mismo número el usuario no pueda poner dos decimales.
@@ -42,6 +41,7 @@ ha quedado obsoleta y se ha etiquetado como @deprecated.
 8. Se ha añadido la opción de poder mostrar u ocultar le historial de operaciones, mediante un *addEventListener*. Se han utilizado iconos de fontAwesome.
 9. Se ha añadido la opción de vaciar los inputs de fechas, mediante un icono "papelera".
 10. Se ha incorporado un nuevo botón para calcular porcentajes.
+11. Se ha marcado como *@deprecated* la función *esInfinito(num)* porqué despues de refactorizar el código, se ha descartado y ya no se utiliza, en js existe la función isFinite(), que hace la misma operación.
 
 ## ⏳ Ampliaciones previstas:
 1. Mejorar funcionamiento de calcular porcentajes. Actualmente calcula el porcentaje sobre el total de todos los números de la izquierda, quiero que lo calcule únicamente para el primer numero de la izquierda y luego se realice el resto de la operación.
