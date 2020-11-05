@@ -1,3 +1,7 @@
+:root{
+  --main-color: #2196f3;
+}
+
 body {
   font-family: "Open Sans Condensed", sans-serif;
 }
@@ -40,13 +44,21 @@ input[type="text"] {
 
 input[type="text"],
 input[type="text"]:focus {
-  border: 1px solid #2196f3;
+  border: 1px solid var(--main-color);
   margin: 5px;
   outline: none;
 }
 
+#fechas input[type="text"]:focus {
+  box-shadow: 0 0 6px 0 var(--main-color), 0 6px 20px 0 var(--main-color);
+}
+
 input[type="text"]:nth-child(2) {
   text-align: right;
+}
+
+label {
+  display: block;
 }
 
 nav a:hover,
@@ -77,7 +89,7 @@ section {
 }
 
 footer > a {
-  color: #2196f3;
+  color: var(--main-color);
   text-decoration: none;
 }
 
@@ -91,7 +103,7 @@ footer p:last-child {
 #fechas button{
   margin: 10px;
   padding: 10px;
-  background-color: #2196f3;
+  background-color: var(--main-color);
   border: none;
   border-radius: 5px;
 }
@@ -105,6 +117,15 @@ footer p:last-child {
   font-weight: 700;
   font-size: 1em;
   padding: 10px;
+}
+
+#standard button:nth-child(4),
+#standard button:nth-child(5) {
+  width: 12%!important;
+}
+
+#standard button:nth-child(6) {
+  width: 16%!important;
 }
 
 #standard button:focus,
@@ -122,21 +143,45 @@ main > section#standard div:last-child > button:last-child{
 }
 
 #operacion {
-  color: #2196f3;
+  color: var(--main-color);
 }
 
 #fechas{
   display: none;
 }
 
-#historial div:last-child{
+#historial > div:last-child{
     display: flex;
     flex-wrap: wrap;
     flex-direction: row-reverse;
 }
 
+#historial > div:first-child {
+  position: relative;
+}
+
+#historial > div:first-child p {
+  font-size: 0.8rem;
+  display: inline;
+  position: absolute;
+  right: 0;
+  margin: 0;
+}
+
+#historial > div:first-child p:last-child {
+  display: none;
+}
+
+#historial > div:first-child > h2 {
+  display: inline;
+}
+
 #standard input[type="text"]{
   font-size: 1.3em;
+}
+
+.fa-trash-alt {
+  color:var(--main-color);
 }
 
 .grid_container {
@@ -148,7 +193,7 @@ main > section#standard div:last-child > button:last-child{
     "section"
     "footer";
   grid-gap: 10px;
-  background-color: #2196f3;
+  background-color: var(--main-color);
   border-radius: 15px;
   margin: 0 auto;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -173,6 +218,7 @@ main > section#standard div:last-child > button:last-child{
   background-color: white;
   border-radius: 4px;
 }
+
 /*responsive design tablet + desktop*/
 @media screen and (min-width: 700px) {
   .grid_container {
@@ -211,6 +257,10 @@ main > section#standard div:last-child > button:last-child{
 
   #fechas input {
     min-width: 45%;
+  }
+
+  #fecHasta{
+    margin-left: 10px;
   }
 
   #fechas button{
@@ -254,6 +304,10 @@ main > section#standard div:last-child > button:last-child{
     min-width: 90%;
   }
 
+  #standard button:nth-child(5) {
+    padding: 0;
+  }
+
   /*menu mobile*/
   #mobileMenu #optionsMenu {
     display: none;
@@ -286,7 +340,7 @@ main > section#standard div:last-child > button:last-child{
   }
 
   .active {
-    color: #2196f3!important;
+    color: var(--main-color)!important;
   }
   /*end menu mobile*/
 }

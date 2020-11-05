@@ -39,15 +39,19 @@ ha quedado obsoleta y se ha etiquetado como @deprecated.
 5. Se ha utilizado el snipet *<!-- prettier-ignore -->* en el HTML sobre aquellas lineas que no se deberían formatear con Prettier.
 6. Para la calculadora de fechas, se ha traducido el calendario de DatePicker a español.
 7. En la función *addsymbol()* se controla que si el último valor es un operador __("*" o "/")__ y a continuación se escribe otro, se sustituye el anterior introducido para no provocar una excepción.
+8. Se ha añadido la opción de poder mostrar u ocultar le historial de operaciones, mediante un *addEventListener*. Se han utilizado iconos de fontAwesome.
+9. Se ha añadido la opción de vaciar los inputs de fechas, mediante un icono "papelera".
+10. Se ha incorporado un nuevo botón para calcular porcentajes.
 
 ## ⏳ Ampliaciones previstas:
-1. Incorporar un botón para calcular porcentajes.
+1. Mejorar funcionamiento de calcular porcentajes. Actualmente calcula el porcentaje sobre el total de todos los números de la izquierda, quiero que lo calcule únicamente para el primer numero de la izquierda y luego se realice el resto de la operación.
 
 ## PUNTOS PENDIENTES DE REALIZAR:
 
-__utilizar variables de CSS__ <br/>
 __PASAR CSS LINT ANTES DE ENTREGAR__ <br/>
-__RELEASE --> NO VISTO EN CLASSE__ <br/>
+__RELEASE pendiente__ <br/>
+
+#### ⬆️ version v1.0
 
 ### 👩‍💻 Autora:
 Mª Victoria Peñas Miró

@@ -68,13 +68,12 @@
             <button name="7" id="but7">7</button>
             <button id="c">C</button>
             <button id="ce" name="ce">CE</button>
+            <button id="backspace" name="backspace"><i class="fas fa-backspace"></i></button>
             <button name="6" id="but6">6</button>
             <button name="5" id="but5">5</button>
             <button name="4" id="but4">4</button>
             <button id="alCuadrado">x2</button>
-            <button id="backspace" name="backspace">
-              <i class="fas fa-backspace"></i>
-            </button>
+            <button id="porcentaje" name="%">%</button>
             <button name="3" id="but3">3</button>
             <button name="2" id="but2">2</button>
             <button name="1" id="but1">1</button>
@@ -91,9 +90,9 @@
         <!--Calculadora de fechas-->
         <section id="fechas">
           <h3>Indica las fechas desde y hasta</h3>
-          <p>Desde: <input type="text" class="datepicker" id="fecDesde"/></p>
-          <p>Hasta: <input type="text" class="datepicker" id="fecHasta"/></p>
-          <button id="calcularFecha">CALCULA</button>
+          <label for="fecDesde">Desde: <input type="text" class="datepicker" id="fecDesde"/></label>
+          <label for="fecHasta">Hasta: <input type="text" class="datepicker" id="fecHasta"/></label>
+          <button id="calcularFecha">CALCULA</button><i class="fas fa-lg fa-trash-alt"></i>
           <div id="diferenciaDias">
             <h4>RESULTADO</h4>
           </div>
@@ -102,6 +101,8 @@
       <section id="historial">
         <div>
           <h2>Historial de operaciones:</h2>
+          <p>Ocultar <i class="fas fa-minus-square"></i></p>
+          <p>Mostrar <i class="fas fa-plus-square"></i></p>
         </div>
         <div>
           <!--operaciones-->

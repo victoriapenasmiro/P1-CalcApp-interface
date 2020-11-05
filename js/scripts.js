@@ -32,6 +32,7 @@ window.onload = function () {
   document.getElementById("cambioSig").addEventListener("click", cambioSigno);
   document.getElementById("cambioSig").addEventListener("click", cambioSigno);
   document.getElementById("alCuadrado").addEventListener("click", alCuadrado);
+  document.getElementById("porcentaje").addEventListener("click", porCien);
   document.getElementById("calcular").addEventListener("click", calcular);
   document
     .getElementById("historialMobile")
@@ -62,6 +63,41 @@ window.onload = function () {
     .getElementById("optionsMenu")
     .getElementsByTagName("a")[2]
     .addEventListener("click", addActiveClass);
+
+  document
+    .getElementById("historial")
+    .getElementsByTagName("p")[0]
+    .addEventListener("click", function () {
+      this.style.display = "none";
+      document
+        .getElementById("historial")
+        .getElementsByTagName("p")[1].style.display = "inline";
+
+      document
+        .getElementById("historial")
+        .getElementsByTagName("div")[1].style.display = "none";
+    });
+
+  document
+    .getElementById("historial")
+    .getElementsByTagName("p")[1]
+    .addEventListener("click", function () {
+      this.style.display = "none";
+      document
+        .getElementById("historial")
+        .getElementsByTagName("p")[0].style.display = "inline";
+
+      document
+        .getElementById("historial")
+        .getElementsByTagName("div")[1].style.display = "flex";
+    });
+
+  document
+    .getElementsByClassName("fa-trash-alt")[0]
+    .addEventListener("click", function () {
+      document.getElementById("fecDesde").value = "";
+      document.getElementById("fecHasta").value = "";
+    });
 
   //calendario en español
   $.datepicker.regional["es"] = {
@@ -122,12 +158,17 @@ window.onload = function () {
 
 /**
  * Funcion para activar la clase active en el menu mobile
+ *
  */
 function addActiveClass() {
   let options = document
     .getElementById("optionsMenu")
     .getElementsByTagName("a");
-  //lo convierto a Array para que funcione con el forEach
+
+  /* Cuando obtenemos los items desde getElementsByTagName
+  es necesario convertirlos a Array para poder tratarlos con 
+  un forEach */
+
   let optionsList = Array.prototype.slice.call(options);
 
   optionsList.forEach(removeActiveClass);
@@ -174,11 +215,11 @@ function calcularFecha() {
       if (campoDesde == "") {
         document.getElementById("fecDesde").value =
           "ERROR: No has indicado ninguna fecha";
-          addHistorial("ERROR","Fecha Desde vacía");
+        addHistorial("ERROR", "Fecha Desde vacía");
       } else if (campoHasta == "") {
         document.getElementById("fecHasta").value =
           "ERROR: No has indicado ninguna fecha";
-          addHistorial("ERROR","Fecha Hasta vacía");
+        addHistorial("ERROR", "Fecha Hasta vacía");
       }
     } else {
       document.getElementById("diferenciaDias").innerHTML =
@@ -273,17 +314,85 @@ function addNumber() {
 function addSymbol() {
   let num = this.name;
   let operacion = document.getElementById("operacion").value;
-  let ultimoOperador = operacion.charAt(operacion.length-1);
+  let ultimoOperador = operacion.charAt(operacion.length - 1);
   decimal = false; // resteo
 
   //Si se intenta poner dos operadores seguidos, sustituyo el antiguo por el nuevo indicado
-  if ((num == "*" || num == "/") && (ultimoOperador == "*" || ultimoOperador == "/")){
+  if (
+    (num == "*" || num == "/") &&
+    (ultimoOperador == "*" || ultimoOperador == "/")
+  ) {
     eliminarUltimo(operacion, 1);
   }
 
-  document.getElementById("operacion").value += num;
+  if (operacion == 0 && num == "-") {
+    document.getElementById("operacion").value = num;
+  } else {
+    document.getElementById("operacion").value += num;
+  }
   //reseteo la casilla del operando
   document.getElementById("operando").value = 0;
+}
+
+/**
+ * Función para calcular el tanto por ciento de un número
+ * 
+ */
+function porCien() {
+  let operacion = document.getElementById("operacion").value;
+  let per = document.getElementById("operando").value.replace(/,/g, ".");
+  let posUltimoOperador = buscoOperador(operacion);
+  let num = operacion.substr(0,posUltimoOperador);
+  let res = null;
+
+  document.getElementById("operando").value += "%";
+  
+  //compruebo si hay más de un operador
+  if (
+    num.indexOf("*") == -1 &&
+    num.indexOf("/") == -1 &&
+    num.indexOf("+") == -1 &&
+    num.indexOf("-") == -1
+  ) {
+    try{
+      num = operacion.substr(0, operacion.length - per.length - 1).replace(/,/g, ".");
+      num = parseFloat(num);
+      res = eval(num + ((num / 100) * per));
+      if(isNaN(res)) throw "La operación no es válida";
+    } catch (error) {
+      res = exceptionSyntax(error);
+    } finally {
+      addHistorial(operacion + "%", res);
+    }
+  } else {
+    try {
+      num = num.replace(/,/g, ".");
+      res = eval(num);
+      res = eval(res + (res / 100) * per);
+      if(isNaN(res)) throw "La operación no es válida";
+    } catch (error) {
+      res = exceptionSyntax(error);
+    } finally {
+      addHistorial(operacion + "%", res);
+    }
+  }
+  document.getElementById("operacion").value = res.toString().replace(".", ",");
+}
+
+/**
+ * Función para lanzar controlar una excepción
+ * @param {Error} error excepcion que se ha lanzado con eval()
+ */
+function exceptionSyntax(error){
+  if (error instanceof SyntaxError) {
+    error = "ERROR: sintaxis incorrecta";
+    document.getElementById("operacion").value = error;
+    document.getElementById("operando").value = error;
+  } else {
+    document.getElementById("operacion").value = error;
+    document.getElementById("operando").value = error;
+  }
+  return error;
 }
 
 /**
@@ -296,7 +405,7 @@ function calcular() {
   try {
     res = eval(operacion);
     if (esInfinito(res)) {
-      addHistorial(operacion,"ERROR: Operación invalida");
+      addHistorial(operacion, "ERROR: Operación invalida");
     } else {
       //convierto los . en comas para pintarlo
       res = res.toString().replace(".", ",");
@@ -307,9 +416,7 @@ function calcular() {
     }
   } catch (error) {
     if (error instanceof SyntaxError) {
-      document.getElementById("operacion").value = "ERROR: sintaxis incorrecta";
-      document.getElementById("operando").value = "ERROR: sintaxis incorrecta";
-      addHistorial(operacion, "ERROR: sintaxis incorrecta");
+      exceptionSyntax(operacion,error);
     }
   }
 
@@ -361,17 +468,18 @@ function borrarTodo() {
 function borrarOperando() {
   let operacion = document.getElementById("operacion").value;
   let ultimoValor = operacion.substr(-1, 1); //obtengo el último valor
+  let num = document.getElementById("operando").value;
 
   document.getElementById("operando").value = 0;
 
   //si se elimina el decimal, reseteo var
-  if ((ultimoValor = ".")) {
+  if (ultimoValor == ".") {
     decimal = false;
   }
 
   if (this.name == "ce") {
     if (operadores.indexOf(ultimoValor) == -1) {
-      eliminarUltimo(operacion, 1);
+      eliminarUltimo(operacion, num.length);
     }
   } else if (this.name == "backspace") {
     eliminarUltimo(operacion, 1);
@@ -432,7 +540,7 @@ function cambioSigno() {
 }
 
 /**
- * Función para buscar el último operador
+ * Función para buscar la posición del último operador
  * @param {string} operacion es la operacion que se está calculando
  */
 function buscoOperador(operacion) {
