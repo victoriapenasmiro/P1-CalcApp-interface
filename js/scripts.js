@@ -363,6 +363,7 @@ function porCien() {
       res = exceptionSyntax(error);
     } finally {
       addHistorial(operacion + "%", res);
+      document.getElementById("operando").value = 0;
     }
   } else {
     try {
@@ -374,6 +375,7 @@ function porCien() {
       res = exceptionSyntax(error);
     } finally {
       addHistorial(operacion + "%", res);
+      document.getElementById("operando").value = 0;
     }
   }
   document.getElementById("operacion").value = res.toString().replace(".", ",");
@@ -558,7 +560,7 @@ function buscoOperador(operacion) {
  */
 function alCuadrado() {
   let operacion = document.getElementById("operacion").value;
-  let num = document.getElementById("operando").value;
+  let num = document.getElementById("operando").value.replace(",", ".");
   let ultimoOperador = buscoOperador(operacion);
   let simbolo = operacion.substr(ultimoOperador, 1);
 
@@ -569,14 +571,16 @@ function alCuadrado() {
     if (operacion.substr(ultimoOperador - 1, 1) == "(") {
       eliminarUltimo(operacion, num.length + 3);
       document.getElementById("operacion").value +=
-        "(" + simbolo + Math.pow(num, 2) + ")";
+        "(" + simbolo + Math.pow(num, 2).toString().replace(".", ",") + ")";
       document.getElementById("operando").value =
-        "(" + simbolo + Math.pow(num, 2) + ")";
+        "(" + simbolo + Math.pow(num, 2).toString().replace(".", ",") + ")";
     } else {
       eliminarUltimo(operacion, num.length);
-      document.getElementById("operacion").value += Math.pow(num, 2);
-      document.getElementById("operando").value = Math.pow(num, 2);
+      document.getElementById("operacion").value += Math.pow(num, 2).toString().replace(".", ",");
+      document.getElementById("operando").value = Math.pow(num, 2).toString().replace(".", ",");
     }
+  } else {
+    document.getElementById("operacion").value = Math.pow(parseFloat(operacion), 2);
   }
 }
 
