@@ -46,11 +46,6 @@ Krona One para títulos.
 ## ⏳ Ampliaciones previstas:
 1. Mejorar funcionamiento de calcular porcentajes. Actualmente calcula el porcentaje sobre el total de todos los números de la izquierda, quiero que lo calcule únicamente para el primer numero de la izquierda y luego se realice el resto de la operación.
 
-## PUNTOS PENDIENTES DE REALIZAR:
-
-__PASAR CSS LINT ANTES DE ENTREGAR__ <br/>
-__RELEASE pendiente__ <br/>
-
 #### ⬆️ version v1.0
 
 ### 👩‍💻 Autora:
