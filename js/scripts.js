@@ -438,22 +438,6 @@ function addHistorial(operacion, resultado) {
 }
 
 /**
- * Función para comprobar si el resultado es infinito
- * @param {number} num es el resultado de una operacion realizadas con eval()
- * @deprecated obsoleta porqué ya existe una función en js que permite comprobar
- * si un número es o no Infinito con isFinite()
- */
-function esInfinito(num) {
-  if (num === Infinity) {
-    document.getElementById("operacion").value = "ERROR: Operación invalida";
-    document.getElementById("operando").value = "ERROR: Operación invalida";
-    return true;
-  } else {
-    return false;
-  }
-}
-
-/**
  * Función para resetear los cálculos realizados hasta el momento
  */
 function borrarTodo() {
@@ -689,5 +673,21 @@ function cambioSigno_old() {
     } else {
       document.getElementById("operacion").value += "+";
     }
+  }
+}
+
+/**
+ * Función para comprobar si el resultado es infinito
+ * @param {number} num es el resultado de una operacion realizadas con eval()
+ * @deprecated obsoleta porqué ya existe una función en js que permite comprobar
+ * si un número es o no Infinito con isFinite()
+ */
+function esInfinito(num) {
+  if (num === Infinity) {
+    document.getElementById("operacion").value = "ERROR: Operación invalida";
+    document.getElementById("operando").value = "ERROR: Operación invalida";
+    return true;
+  } else {
+    return false;
   }
 }
